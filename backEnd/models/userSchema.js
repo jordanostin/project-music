@@ -5,14 +5,19 @@ import jwt from 'jsonwebtoken';
 const userSchema = mongoose.Schema({
 
     name: {
-        type: String
+        type: String,
+        required: true
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true,
+        match: /.+\@.+\..+/,
+        
     },
     password:{
-        type: String
+        type: String,
+        required: true
     },
     isAdmin: {
         type: Boolean, 
@@ -33,12 +38,12 @@ userSchema.methods.createJWT = function () {
     return jwt.sign({
         id: this._id,
         email: this.email
-    }, 'key_secret', {expiresIn: '24h'})
+    }, process.env.JWT, {expiresIn: '24h'})
 }
 
 userSchema.statics.decodeJWT = async function (token) {
     try {
-    const decoded = jwt.verify(token, 'key_secret');
+    const decoded = jwt.verify(token, process.env.JWT);
     const user = await this.findOne({ email: decoded.email });
 
     if (!user) {

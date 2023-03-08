@@ -4,8 +4,9 @@ import authRouter from './routes/authRouter.js';
 import adminRouter from './routes/adminRouter.js'
 import userRouter from './routes/userRouter.js'
 import {auth} from './middleware/auth.js'
+import * as dotenv from 'dotenv';
 import cors from 'cors';
-
+dotenv.config();
 
 const PORT = 9200;
 const app = express();
@@ -16,7 +17,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://jordanostin:123@clusterapp.7ev62mm.mongodb.net/project-music?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGO_DB_URL);
 
 
 mongoose.connection.on("error", () => {

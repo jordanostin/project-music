@@ -26,32 +26,28 @@ export const uploadAudio = async(req, res) => {
             if(err){
                 res.status(400).json({message: 'Une erreur est survenue'});
             }else{
-                res.status(200).json({message : 'Fichier uploadé avec succès'})
+                fs.copyFile(imageOldPath, 'public/'+imageNewPath, (err) => {
+                    if(err){
+                        res.status(400).json({message: 'Une erreur est survenue'});
+                    }else{
+                        const music = new musicSchema({
+                            name,
+                            description,
+                            audio: audioNewPath,
+                            image: imageNewPath
+                        })
+                
+                        music.save()
+                        .then(() =>{
+                            res.status(201).json({music})
+                        })
+                        .catch((err) => {
+                            return res.status(400).json({message : 'une erreur est survenue'})
+                        })
+                    }
+                })
             }
         });
-
-        fs.copyFile(imageOldPath, 'public/'+imageNewPath, (err) => {
-            if(err){
-                res.status(400).json({message: 'Une erreur est survenue'});
-            }else{
-                res.status(200).json({message : 'Fichier uploadé avec succès'})
-            }
-        })
-
-        const music = new musicSchema({
-            name,
-            description,
-            audio: audioNewPath,
-            image: imageNewPath
-        })
-
-        music.save()
-        .then(() =>{
-            res.status(201).json({music})
-        })
-        .catch((err) => {
-            return res.status(400).json({message : 'une erreur est survenue'})
-        })
     })
 }
   
