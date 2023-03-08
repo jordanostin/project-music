@@ -1,5 +1,5 @@
 import express from 'express';
-import { updateAudio, uploadAudio } from '../controllers/audioController.js';
+import { updateAudio, uploadAudio} from '../controllers/audioController.js';
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
 
