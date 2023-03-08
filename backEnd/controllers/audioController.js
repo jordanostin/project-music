@@ -1,55 +1,70 @@
 import musicSchema from '../models/musicSchema.js';
 import formidable from 'formidable';
-import path from 'path';
+import fs from 'fs';
 
 export const uploadAudio = (req, res) => {
+    const form = formidable({multiples: true})
 
-    const form = formidable({ 
-        multiples: true,
-        uploadDir: path.join(path.dirname(new URL(import.meta.url).pathname), '../uploads'),
-        keepExtensions: true
-    });
-  
     form.parse(req, (err, fields, files) => {
+
+
         if (err) {
-            console.error(err);
-            return res.status(400).json({ message: 'Erreur de traitement du formulaire' });
+        return res.status(400).json({ message: 'une erreur est survenue' });
         }
-    
-        const { name, description } = fields;
-        const image = files.image;
-        const audio = files.audio;
-    
-        if (!audio) {
-            return res.status(400).json({ message: 'Aucun fichier audio sélectionné' });
+
+        const {name, description} = fields;
+        const {image, audio} = files;
+
+        if(!audio || !image){
+            return res.status(400).json({message : 'selectionne un fichier audio et image'})
         }
-    
-        const music = new musicSchema({
-            name,
-            description,
-            image: image ? `/image/${image.name}` : '',
-            audio: audio ? `/audio/${audio.name}` : '',
-        });
-  
-        music.save()
-        .then(() => {
-            res.status(201).json({
-                music: {
-                    id: music._id,
+
+        const audioPath = audio.path;
+        const imagePath = image.path;
+
+        if (!fs.existsSync(audioPath)) {
+            return res.status(400).json({ message: 'le fichier audio est introuvable' });
+        }
+        if (!fs.existsSync(imagePath)) {
+            return res.status(400).json({ message: 'le fichier image est introuvable' });
+        }
+
+        fs.rename(audioPath, `./uploads/audio/${audio.name}`, (err) => {
+            if(err){
+                return res.status(400).json({message : 'il y a une erreur pour l\'enregistrement de l\'audio'})
+            }
+
+            fs.rename(imagePath, `./uploads/image/${image.name}`, (err) => {
+                if(err){
+                    return res.status(400).json({message : 'il y a une erreur pour l\'enregistrement de l\'image'})
+                }
+
+                const music = new musicSchema({
                     name,
                     description,
-                    image: music.image,
-                    audio: music.audio,
-                },
+                    image: `./uploads/image/${image.name}`,
+                    audio: `./uploads/audio/${audio.name}`,
+                });
+
+                music.save()
+                .then(() => {
+                    res.status(201).json({
+                        music:{
+                            id: music._id,
+                            name,
+                            description,
+                            image: `./uploads/image/${image.name}`,
+                            audio: `./uploads/audio/${audio.name}`,
+                        }
+                    });
+                })
+                .catch(err => {
+                    res.status(400).json({message: 'il y a une erreur pour l\'enregistrement de la musique'})
+                })
             });
-        })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({ message: 'Une erreur est survenue lors de l\'enregistrement de la musique' });
         });
     });
 };
-
 
 export const updateAudio = (req, res) => {
 
