@@ -81,6 +81,9 @@ export const verifyToken  = async (req, res) => {
         }
 
         const user = await userSchema.findOne({_id: decoded._id})
+        if(!user){
+            res.status(400).json({message: 'token invalide'})
+        }
         res.status(200).json({
             user:{
                 email: user.email,
@@ -103,7 +106,6 @@ export const updateUser = (req, res) => {
 
         bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
             if (err) {
-              console.error(err);
               return res.status(500).json({message: "erreur 1"});
             }
       

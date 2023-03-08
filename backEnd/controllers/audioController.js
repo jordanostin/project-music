@@ -14,15 +14,22 @@ export const uploadAudio = async(req, res) => {
 
         const {name, description} = fields;
 
+        if (!files.audio) {
+            return res.status(400).json({ message: 'Il manque un fichier audio' });
+        }
+
         const audioOldPath = files.audio.filepath;   
-        const imageOldPath = files.audio.filepath;   
+        const imageOldPath = files.audio.filepath;
 
         const audioNewPath = 'audio/'+files.audio.originalFilename;
-        const imageNewPath = 'image/'+files.image.originalFilename;
 
-        console.log(audioNewPath);
+        let imageNewPath = null;
+        if(files.image){
+            imageNewPath = 'image/'+files.image.originalFilename;
+        }
 
         fs.copyFile(audioOldPath, 'public/'+audioNewPath, (err) => {
+
             if(err){
                 res.status(400).json({message: 'Une erreur est survenue'});
             }else{
@@ -44,12 +51,12 @@ export const uploadAudio = async(req, res) => {
                         .catch((err) => {
                             return res.status(400).json({message : 'une erreur est survenue'})
                         })
-                    }
-                })
-            }
+                    };
+                });
+            };
         });
-    })
-}
+    });
+};
   
 
 export const updateAudio = (req, res) => {
