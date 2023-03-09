@@ -20,7 +20,7 @@ const musicSchema = mongoose.Schema({
         type: String
     },
 },{
-    timestamp: true
+    timestamps: true
 });
 
 export default mongoose.model('Music', musicSchema);

@@ -1,6 +1,7 @@
 import Comment from "../models/comSchema.js";
 import Music from "../models/musicSchema.js";
 import User from "../models/userSchema.js";
+import fs from "fs"
 
 export const deleteType = async (req,res) => {
     
@@ -15,11 +16,27 @@ export const deleteType = async (req,res) => {
     const id = req.params.id
 
     try {
-        await type.findByIdAndDelete(id);
-        console.log("Successful deletion");
-    } catch (err) {
-        console.log(err);
-    }
+        const item = await type.findByIdAndDelete(id);
 
-    res.status(200).json({message: 'succesful delete'})
+        if(!item){
+            res.status(400).json({message: 'Element introuvable'})
+        }else{
+            fs.unlink(`public/${item.audio}`, (err) => {
+                if (err) {
+                    res.status(500).json({message: 'Erreur lors de la suppression du fichier audio'})
+                }else if(!item.image){
+                    res.status(200).json({message: 'Suppression réussi'})
+                }else{
+                    fs.unlink(`public/${item.image}`, (err) => {
+                        if (err) {
+                            res.status(500).json({message: 'Erreur lors de la suppression du fichier image'})
+                        }
+                        res.status(200).json({message: 'Suppression réussi'})
+                    });
+                }
+            });
+        }
+    } catch (err) {
+        res.status(400).json({message: 'Erreur'});
+    }
 }

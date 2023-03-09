@@ -18,41 +18,43 @@ export const uploadAudio = async(req, res) => {
             return res.status(400).json({ message: 'Il manque un fichier audio' });
         }
 
-        const audioOldPath = files.audio.filepath;   
-        const imageOldPath = files.audio.filepath;
+        const audioOldPath = files.audio.filepath;
+        const audioNewPath = 'audio/'+files.audio.originalFilename.replace(/ /g, '_');
 
-        const audioNewPath = 'audio/'+files.audio.originalFilename;
-
-        let imageNewPath = null;
+        let imageNewPath;
         if(files.image){
-            imageNewPath = 'image/'+files.image.originalFilename;
+            const imageOldPath = files.audio.filepath;
+
+            imageNewPath = 'image/'+files.image.originalFilename.replace(/ /g, '_');
+
+            fs.copyFile(imageOldPath, 'public/'+imageNewPath, (err) => {
+                if(err){
+                    res.status(400).json({message: 'Une erreur est survenue au chargement de l\'image'});
+                }
+            })
         }
 
         fs.copyFile(audioOldPath, 'public/'+audioNewPath, (err) => {
 
             if(err){
-                res.status(400).json({message: 'Une erreur est survenue'});
+                res.status(400).json({message: 'Une erreur est survenue au chargement de l\'audio'});
             }else{
-                fs.copyFile(imageOldPath, 'public/'+imageNewPath, (err) => {
-                    if(err){
-                        res.status(400).json({message: 'Une erreur est survenue'});
-                    }else{
-                        const music = new musicSchema({
-                            name,
-                            description,
-                            audio: audioNewPath,
-                            image: imageNewPath
-                        })
                 
-                        music.save()
-                        .then(() =>{
-                            res.status(201).json({music})
-                        })
-                        .catch((err) => {
-                            return res.status(400).json({message : 'une erreur est survenue'})
-                        })
-                    };
-                });
+                const music = new musicSchema({
+                    name,
+                    description,
+                    audio: audioNewPath,
+                    image: imageNewPath,
+                    createdAt: Date.now()
+                })
+        
+                music.save()
+                .then(() =>{
+                    res.status(201).json({music})
+                })
+                .catch((err) => {
+                    return res.status(400).json({message : 'une erreur est survenue'})
+                })
             };
         });
     });
@@ -61,25 +63,76 @@ export const uploadAudio = async(req, res) => {
 
 export const updateAudio = (req, res) => {
 
-    const musicId = req.params.id;
+    const form = formidable({multiples: true});
 
-    const update = {
-        name: req.body.name,
-        description: req.body.description,
-        img: req.body.img,
-        audio: req.boy.audio
-    };
+    form.parse(req, async(err, fields, files)=>{
 
-  
-    musicSchema.updateOne({ _id: musicId }, update)
-        .then(() => {
-        res.status(200).json({update})
-        })
-        .catch((err) => {
-        console.error(err);
-        res.status(500).json({message: 'Erreur de la mise à jour'});
-        });
-    
+        const musicId = req.params.id;
+
+        const {name, description} = fields;
+
+        
+        if(!files.image){
+            const update = {
+                name,
+                description,
+                updatedAt: Date.now()
+            };
+            musicSchema.updateOne({ _id: musicId }, update)
+                .then(() => {
+                    res.status(200).json({ update });
+                })
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).json({ message: 'Erreur de la mise à jour' });
+                });
+        }else{
+            let imageNewPath;
+            const imageOldPath = files.image.filepath;
+            imageNewPath = 'image/' + files.image.originalFilename.replace(/ /g, '_');
+
+            fs.copyFile(imageOldPath, 'public/' + imageNewPath, (err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ message: 'Une erreur est survenue' });
+                } else {
+                    musicSchema.findById(musicId).exec()
+                        .then((music) => {
+                            if (!music) {
+                                res.status(404).json({ message: 'Musique non trouvée' });
+                            } else {
+                                const oldImagePath = music.image;
+                                fs.unlink(`public/${oldImagePath}`, (err) => {
+                                    if (err) {
+                                        console.error(err);
+                                        res.status(500).json({ message: 'Erreur de la suppression de l\'ancienne image' });
+                                    } else {
+                                        const update = {
+                                            name,
+                                            description,
+                                            image: imageNewPath,
+                                            updatedAt: music.updatedAt
+                                        };
+                                        musicSchema.updateOne({ _id: musicId }, update)
+                                            .then(() => {
+                                                res.status(200).json({ update });
+                                            })
+                                            .catch((err) => {
+                                                console.error(err);
+                                                res.status(500).json({ message: 'Erreur de la mise à jour' });
+                                            });
+                                    }
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                            res.status(500).json({ message: 'Erreur de la mise à jour' });
+                        });
+                }
+            });
+        }
+    })
 }
 
 export const downloadAudio = (req, res) => {

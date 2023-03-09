@@ -10,7 +10,7 @@ router.post('/upload', uploadAudio);
 router.get('/verify-token', verifyToken);
 router.get("/delete/:type/:id", deleteType);
 
-router.put("/update/:id", updateUser);
-router.put("/products/:id", updateAudio);
+router.put("/update/user/:id", updateUser);
+router.put("/update/audio/:id", updateAudio);
 
 export default router;

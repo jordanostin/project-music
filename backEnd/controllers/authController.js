@@ -10,7 +10,8 @@ export const register = (req, res) => {
         name,
         email,
         password,
-        isAdmin: email == 'milo@gmail.com'
+        isAdmin: email == 'milo@gmail.com',
+        createdAt: Date.now(),
     })
 
     const token = user.createJWT();
@@ -21,7 +22,8 @@ export const register = (req, res) => {
                 name: user.name,
                 email: user.email,
                 id: user._id,
-                isAdmin: user.isAdmin
+                isAdmin: user.isAdmin,
+                createdAt: user.createdAt
             },
             token
         })
@@ -100,6 +102,7 @@ export const updateUser = (req, res) => {
 
     const update = {
       password: req.body.password,
+      updatedAt: Date.now(),
     };
 
     if(req.body.password){
