@@ -1,35 +1,51 @@
 import musicSchema from '../models/musicSchema.js';
+import jwt from 'jsonwebtoken';
 import formidable from 'formidable';
 import fs from 'fs'
 
 export const uploadAudio = async(req, res) => {
 
-    const form = formidable({multiples: true});
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT);
+    const userId = decoded._id;
+
+    const form = formidable({multiples: false});
 
     form.parse(req, async(err, fields, files)=>{
 
         if(err){
-            res.status(500).json({message:'Une erreur est survenue'});
+           return res.status(500).json({message:'Une erreur est survenue'});
         }
 
         const {name, description} = fields;
 
         if (!files.audio) {
-            return res.status(400).json({ message: 'Il manque un fichier audio' });
-        }
+            return res.status(400).json({ message: 'Il manque un fichier audio ou fichier non supporté' });
+        };
 
         const audioOldPath = files.audio.filepath;
         const audioNewPath = 'audio/'+files.audio.originalFilename.replace(/ /g, '_');
 
+        const allowedExtensions = ['audio/mp3', 'audio/wav', 'audio/ogg', 'audio/mpeg'];
+
+        if (!allowedExtensions.includes(files.audio.mimetype)) {
+            return res.status(400).json({ message: 'Le fichier audio doit être de type .mp3, .wav, .mepg ou .ogg' });
+        }
+
         let imageNewPath;
         if(files.image){
-            const imageOldPath = files.audio.filepath;
-
+            const imageOldPath = files.image.filepath;
             imageNewPath = 'image/'+files.image.originalFilename.replace(/ /g, '_');
+
+            const allowedExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
+
+            if (!allowedExtensions.includes(files.image.mimetype)) {
+                return res.status(400).json({ message: 'L\'image doit être de type .jpeg, .png, .jpg' });
+            }
 
             fs.copyFile(imageOldPath, 'public/'+imageNewPath, (err) => {
                 if(err){
-                    res.status(400).json({message: 'Une erreur est survenue au chargement de l\'image'});
+                    return res.status(400).json({message: 'Une erreur est survenue au chargement de l\'image'});
                 }
             })
         }
@@ -37,10 +53,11 @@ export const uploadAudio = async(req, res) => {
         fs.copyFile(audioOldPath, 'public/'+audioNewPath, (err) => {
 
             if(err){
-                res.status(400).json({message: 'Une erreur est survenue au chargement de l\'audio'});
+                return res.status(400).json({message: 'Une erreur est survenue au chargement de l\'audio'});
             }else{
                 
                 const music = new musicSchema({
+                    user: userId,
                     name,
                     description,
                     audio: audioNewPath,
@@ -50,7 +67,7 @@ export const uploadAudio = async(req, res) => {
         
                 music.save()
                 .then(() =>{
-                    res.status(201).json({music})
+                    return res.status(201).json({music})
                 })
                 .catch((err) => {
                     return res.status(400).json({message : 'une erreur est survenue'})
@@ -61,7 +78,16 @@ export const uploadAudio = async(req, res) => {
 };
   
 
+
+
+
+
+
 export const updateAudio = (req, res) => {
+
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT);
+    const userId = decoded._id;
 
     const form = formidable({multiples: true});
 
@@ -71,20 +97,20 @@ export const updateAudio = (req, res) => {
 
         const {name, description} = fields;
 
-        
         if(!files.image){
-            const update = {
+            const music = {
+                user: userId,
                 name,
                 description,
                 updatedAt: Date.now()
             };
-            musicSchema.updateOne({ _id: musicId }, update)
+            musicSchema.updateOne({ _id: musicId }, music)
                 .then(() => {
-                    res.status(200).json({ update });
+                    return res.status(200).json({ music });
                 })
                 .catch((err) => {
-                    console.error(err);
-                    res.status(500).json({ message: 'Erreur de la mise à jour' });
+                    console.log(err);
+                    return res.status(500).json({ message: 'Erreur de la mise à jour' });
                 });
         }else{
             let imageNewPath;
@@ -94,32 +120,33 @@ export const updateAudio = (req, res) => {
             fs.copyFile(imageOldPath, 'public/' + imageNewPath, (err) => {
                 if (err) {
                     console.error(err);
-                    res.status(500).json({ message: 'Une erreur est survenue' });
+                    return res.status(500).json({ message: 'Une erreur est survenue' });
                 } else {
                     musicSchema.findById(musicId).exec()
                         .then((music) => {
                             if (!music) {
-                                res.status(404).json({ message: 'Musique non trouvée' });
+                                return res.status(404).json({ message: 'Musique non trouvée' });
                             } else {
                                 const oldImagePath = music.image;
                                 fs.unlink(`public/${oldImagePath}`, (err) => {
                                     if (err) {
                                         console.error(err);
-                                        res.status(500).json({ message: 'Erreur de la suppression de l\'ancienne image' });
+                                        return res.status(500).json({ message: 'Erreur de la suppression de l\'ancienne image' });
                                     } else {
-                                        const update = {
+                                        const music = {
+                                            user: userId,
                                             name,
                                             description,
                                             image: imageNewPath,
                                             updatedAt: music.updatedAt
                                         };
-                                        musicSchema.updateOne({ _id: musicId }, update)
+                                        musicSchema.updateOne({ _id: musicId }, music)
                                             .then(() => {
-                                                res.status(200).json({ update });
+                                                return res.status(200).json({ music });
                                             })
                                             .catch((err) => {
                                                 console.error(err);
-                                                res.status(500).json({ message: 'Erreur de la mise à jour' });
+                                                return res.status(500).json({ message: 'Erreur de la mise à jour' });
                                             });
                                     }
                                 });
@@ -127,13 +154,18 @@ export const updateAudio = (req, res) => {
                         })
                         .catch((err) => {
                             console.error(err);
-                            res.status(500).json({ message: 'Erreur de la mise à jour' });
+                            return res.status(500).json({ message: 'Erreur de la mise à jour' });
                         });
                 }
             });
         }
     })
 }
+
+
+
+
+
 
 export const downloadAudio = (req, res) => {
 
@@ -142,10 +174,10 @@ export const downloadAudio = (req, res) => {
     musicSchema.findById(musicId)
         .then((music) => {
             const file = music.audio;
-            res.download(file);
+            return res.download(file);
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).json({message: 'Erreur de téléchargement'});
+            return res.status(500).json({message: 'Erreur de téléchargement'});
         });
 };

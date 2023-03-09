@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/upload', uploadAudio);
 
 router.get('/verify-token', verifyToken);
-router.get("/delete/:type/:id", deleteType);
+router.delete("/delete/:type/:id", deleteType);
 
 router.put("/update/user/:id", updateUser);
 router.put("/update/audio/:id", updateAudio);

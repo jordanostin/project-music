@@ -18,25 +18,27 @@ export const deleteType = async (req,res) => {
     try {
         const item = await type.findByIdAndDelete(id);
 
-        if(!item){
+        if(!item){ 
             res.status(400).json({message: 'Element introuvable'})
         }else{
             fs.unlink(`public/${item.audio}`, (err) => {
                 if (err) {
                     res.status(500).json({message: 'Erreur lors de la suppression du fichier audio'})
-                }else if(!item.image){
+                }
+                
+                if(!item.image){
                     res.status(200).json({message: 'Suppression réussi'})
                 }else{
                     fs.unlink(`public/${item.image}`, (err) => {
                         if (err) {
-                            res.status(500).json({message: 'Erreur lors de la suppression du fichier image'})
+                            return res.status(500).json({message: 'Erreur lors de la suppression du fichier image'})
                         }
-                        res.status(200).json({message: 'Suppression réussi'})
+                        return res.status(200).json({message: 'Suppression réussi'})
                     });
                 }
             });
         }
     } catch (err) {
-        res.status(400).json({message: 'Erreur'});
+        return res.status(400).json({message: 'Erreur'});
     }
 }
