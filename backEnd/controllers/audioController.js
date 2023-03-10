@@ -1,15 +1,13 @@
 import musicSchema from '../models/musicSchema.js';
-import jwt from 'jsonwebtoken';
 import formidable from 'formidable';
+import { getUserIdFromToken } from '../utils/utils.js';
 import fs from 'fs'
 
 export const uploadAudio = async(req, res) => {
 
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT);
-    const userId = decoded._id;
+    const userId = getUserIdFromToken(req);
 
-    const form = formidable({multiples: false});
+    const form = formidable({multiples: true});
 
     form.parse(req, async(err, fields, files)=>{
 
@@ -23,6 +21,10 @@ export const uploadAudio = async(req, res) => {
             return res.status(400).json({ message: 'Il manque un fichier audio ou fichier non supporté' });
         };
 
+        if(files.audio.length){
+            return res.status(500).json({message : 'Vous pouvez ajouter qu\'un seul fichier audio'})
+        }
+
         const audioOldPath = files.audio.filepath;
         const audioNewPath = 'audio/'+files.audio.originalFilename.replace(/ /g, '_');
 
@@ -34,6 +36,11 @@ export const uploadAudio = async(req, res) => {
 
         let imageNewPath;
         if(files.image){
+
+            if(files.image.length){
+                return res.status(500).json({message : 'Vous pouvez ajouter qu\'une seule image'})
+            };
+
             const imageOldPath = files.image.filepath;
             imageNewPath = 'image/'+files.image.originalFilename.replace(/ /g, '_');
 
@@ -76,8 +83,6 @@ export const uploadAudio = async(req, res) => {
         });
     });
 };
-  
-
 
 
 
@@ -85,9 +90,7 @@ export const uploadAudio = async(req, res) => {
 
 export const updateAudio = (req, res) => {
 
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT);
-    const userId = decoded._id;
+    const userId = getUserIdFromToken(req);
 
     const form = formidable({multiples: true});
 
@@ -166,18 +169,18 @@ export const updateAudio = (req, res) => {
 
 
 
-
 export const downloadAudio = (req, res) => {
 
     const musicId = req.params.id;
 
     musicSchema.findById(musicId)
         .then((music) => {
-            const file = music.audio;
+            
+            const file = `public/${music.audio}`;
             return res.download(file);
         })
         .catch((err) => {
-            console.error(err);
+            
             return res.status(500).json({message: 'Erreur de téléchargement'});
         });
 };
