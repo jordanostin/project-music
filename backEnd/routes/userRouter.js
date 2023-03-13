@@ -2,10 +2,12 @@ import express from 'express';
 import { downloadAudio, updateAudio, uploadAudio} from '../controllers/audioController.js';
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
+import { createPlaylist } from '../controllers/playlistController.js';
 
 const router = express.Router();
 
 router.post('/upload', uploadAudio);
+router.post('/create-playlist', createPlaylist);
 
 router.get('/verify-token', verifyToken);
 router.get('/download/:id', downloadAudio);

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import userSchema from './userSchema.js'
-import musicSchema from './articleSchema.js'
+import musicSchema from './musicSchema.js'
 
-const comSchema = mongoose.Schema({
+const playlistSchema = mongoose.Schema({
     
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,4 +19,4 @@ const comSchema = mongoose.Schema({
     timestamp: true
 });
 
-export default mongoose.model('Comment', comSchema);
+export default mongoose.model('Playlist', playlistSchema);
