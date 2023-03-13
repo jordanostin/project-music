@@ -1,7 +1,7 @@
 import musicSchema from '../models/musicSchema.js';
 import formidable from 'formidable';
 import { getUserIdFromToken, copyFiles } from '../utils/utils.js';
-import fs from 'fs'
+import fs from 'fs';
 
 export const uploadAudio = async(req, res) => {
 

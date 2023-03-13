@@ -26,3 +26,35 @@ export const createPlaylist = async(req, res) => {
     
 }
 
+export const addMusicPlaylist = async(req, res) => {
+
+    const userId = getUserIdFromToken(req);
+    console.log(userId);
+
+    try {
+        
+        const playlistId = req.params.playlistId;
+        const musicId = req.params.musicId;
+    
+        const playlist = await playlistSchema.findOneAndUpdate(
+            { _id: playlistId, user: userId },
+            { $addToSet: { musics: musicId } },
+            { new: true }
+        ).populate('musics');
+    
+        if (!playlist) {
+          return res.status(400).json({message: "Impossible d'ajouter la musique à la playlist"});
+        }
+    
+        return res.status(200).json({
+            message: 'Musique ajoutée à la playlist avec succès',
+            data: playlist
+        });
+      } catch (error) {
+        return res.status(500).json({
+            message: "Impossible d'ajouter la musique à la playlist",
+            error: error.message
+        });
+      }
+}
+

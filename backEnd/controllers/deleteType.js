@@ -21,13 +21,14 @@ export const deleteType = async (req,res) => {
 
     try {
         const userId = getUserIdFromToken(req);
-        const item = await type.findById(id)
-        
+        const user = await User.findById(userId)
+        const item = await type.findById(id);
+
         if(!item){ 
             return res.status(400).json({message: 'Element introuvable'})
         };
 
-        if(item.user.toString() !== userId || !isAdmin){
+        if(item.user.toString() !== userId && !user.isAdmin){
             return res.status(500).json({message: 'Vous ne pouvez pas supprimer ce fichier'})
         }
 
@@ -51,6 +52,7 @@ export const deleteType = async (req,res) => {
         await type.findByIdAndDelete(id);
         
     } catch (err) {
+        console.log(err)
         return res.status(400).json({message: 'Erreur'});
     }
 }
