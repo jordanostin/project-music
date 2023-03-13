@@ -14,6 +14,10 @@ const comSchema = mongoose.Schema({
     },
     content: {
         type: String
+    },
+    like:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Like'
     }
 },{
     timestamp: true

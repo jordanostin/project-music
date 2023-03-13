@@ -29,7 +29,6 @@ export const createPlaylist = async(req, res) => {
 export const addMusicPlaylist = async(req, res) => {
 
     const userId = getUserIdFromToken(req);
-    console.log(userId);
 
     try {
         
@@ -43,7 +42,7 @@ export const addMusicPlaylist = async(req, res) => {
         ).populate('musics');
     
         if (!playlist) {
-          return res.status(400).json({message: "Impossible d'ajouter la musique à la playlist"});
+          return res.status(400).json({message: 'Impossible d\'ajouter la musique à la playlist'});
         }
     
         return res.status(200).json({

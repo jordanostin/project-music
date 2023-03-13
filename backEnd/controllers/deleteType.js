@@ -2,8 +2,10 @@ import Comment from "../models/comSchema.js";
 import Music from "../models/musicSchema.js";
 import User from "../models/userSchema.js";
 import Playlist from "../models/playlistSchema.js";
+import Like from "../models/likeSchema.js"
 import { getUserIdFromToken } from "../utils/utils.js";
 import fs from "fs"
+import LikeSchema from "../models/likeSchema.js";
 
 
 export const deleteType = async (req,res) => {
@@ -21,33 +23,44 @@ export const deleteType = async (req,res) => {
 
     try {
         const userId = getUserIdFromToken(req);
-        const user = await User.findById(userId)
+        const user = await User.findById(userId);
+        const isAdmin = user.isAdmin;
         const item = await type.findById(id);
 
-        if(!item){ 
-            return res.status(400).json({message: 'Element introuvable'})
-        };
-
-        if(item.user.toString() !== userId && !user.isAdmin){
-            return res.status(500).json({message: 'Vous ne pouvez pas supprimer ce fichier'})
+        if(type === User){
+            return res.status(200).json({message: 'Utilisateur supprimé'})
         }
 
-        fs.unlink(`public/${item.audio}`, (err) => {
-            if (err) {
-                return res.status(500).json({message: 'Erreur lors de la suppression du fichier audio'})
+        if(type === Playlist){
+            return res.status(200).json({message: 'Playlist supprimé'})
+        }
+
+        if(type === Music){
+            if(!item){
+                return res.status(400).json({message: 'Element introuvable'})
             }
-            
-            if(!item.image){
-                return res.status(200).json({message: 'Suppression réussi'})
-            }else{
-                fs.unlink(`public/${item.image}`, (err) => {
-                    if (err) {
-                        return res.status(500).json({message: 'Erreur lors de la suppression du fichier image'})
-                    }
-                    return res.status(200).json({message: 'Suppression réussi'})
-                });
+
+            if(item.user.toString() !== userId && !isAdmin){
+                return res.status(500).json({message: 'Vous ne pouvez pas supprimer ce fichier'})
             }
-        });
+
+            fs.unlink(`public/${item.audio}`, (err) => {
+                if (err) {
+                    return res.status(500).json({message: 'Erreur lors de la suppression du fichier audio'})
+                }
+
+                if(!item.image){
+                    return res.status(200).json({message: 'Music supprimé'})
+                }else{
+                    fs.unlink(`public/${item.image}`, (err) => {
+                        if (err) {
+                            return res.status(500).json({message: 'Erreur lors de la suppression du fichier image'})
+                        }
+                        return res.status(200).json({message: 'Musique supprimé'})
+                    });
+                }
+            });
+        }
 
         await type.findByIdAndDelete(id);
         

@@ -14,7 +14,11 @@ const playlistSchema = mongoose.Schema({
     musics: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Music'
-    }]
+    }],
+    like:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Like'
+    }
 },{
     timestamp: true
 });

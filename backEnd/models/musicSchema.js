@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import userSchema from './userSchema.js';
 
 const musicSchema = mongoose.Schema({
     
@@ -19,6 +18,10 @@ const musicSchema = mongoose.Schema({
     audio: {
         type: String
     },
+    like:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Like'
+    }
 },{
     timestamps: true
 });
