@@ -3,22 +3,24 @@ import { downloadAudio, updateAudio, uploadAudio} from '../controllers/audioCont
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
 import { addMusicPlaylist, createPlaylist } from '../controllers/playlistController.js';
-import {addlike, removeLike} from "../controllers/likeController.js";
+import {toggleLike} from "../controllers/likeController.js";
+import {createComment, updateComment} from "../controllers/commentController.js";
 
 const router = express.Router();
 
 router.post('/upload', uploadAudio);
 router.post('/create-playlist', createPlaylist);
 router.post('/playlist/:playlistId/musics/:musicId', addMusicPlaylist);
-router.post('/likes/:itemId', addlike);
+router.post('/:type/:itemId/toggleLike', toggleLike);
+router.post('/comment/:type/:itemId', createComment);
 
 router.get('/verify-token', verifyToken);
 router.get('/download/:id', downloadAudio);
 
-router.delete("/delete/:type/:id", deleteType);
-router.delete("/delete/likes/:likeId", removeLike);
+router.delete('/delete/:type/:id', deleteType);
 
-router.put("/update/user/:id", updateUser);
-router.put("/update/audio/:id", updateAudio);
+router.put('/update/user/:id', updateUser);
+router.put('/update/audio/:id', updateAudio);
+router.put('/update/comment/:id', updateComment)
 
 export default router;

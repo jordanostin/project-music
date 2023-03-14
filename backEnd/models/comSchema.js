@@ -6,7 +6,12 @@ const comSchema = mongoose.Schema({
     
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ['music', 'comment', 'playlist'],
     },
     music: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +19,14 @@ const comSchema = mongoose.Schema({
     },
     content: {
         type: String
+    },
+    comment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+    },
+    playlist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Playlist'
     },
     like:{
         type: mongoose.Schema.Types.ObjectId,

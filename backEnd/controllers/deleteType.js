@@ -2,10 +2,8 @@ import Comment from "../models/comSchema.js";
 import Music from "../models/musicSchema.js";
 import User from "../models/userSchema.js";
 import Playlist from "../models/playlistSchema.js";
-import Like from "../models/likeSchema.js"
 import { getUserIdFromToken } from "../utils/utils.js";
-import fs from "fs"
-import LikeSchema from "../models/likeSchema.js";
+import fs from "fs";
 
 
 export const deleteType = async (req,res) => {
@@ -28,11 +26,27 @@ export const deleteType = async (req,res) => {
         const item = await type.findById(id);
 
         if(type === User){
+            if(!item){
+                return res.status(400).json({message: 'Element introuvable'})
+            }
+            await User.findByIdAndDelete(id);
             return res.status(200).json({message: 'Utilisateur supprimé'})
         }
 
         if(type === Playlist){
+            if(!item){
+                return res.status(400).json({message: 'Element introuvable'})
+            }
+            await Playlist.findByIdAndDelete(id);
             return res.status(200).json({message: 'Playlist supprimé'})
+        }
+
+        if(type === Comment){
+            if(!item){
+                return res.status(400).json({message: 'Element introuvable'})
+            }
+            await Comment.findByIdAndDelete(id);
+            return res.status(200).json({message: 'Commentaire supprimé'})
         }
 
         if(type === Music){

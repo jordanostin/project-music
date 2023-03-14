@@ -1,55 +1,39 @@
 import {getUserIdFromToken} from "../utils/utils.js";
 import Like from "../models/likeSchema.js";
-export const addlike = async(req, res) => {
+export const toggleLike = async(req, res) => {
 
     const userId = getUserIdFromToken(req);
     const itemId = req.params.itemId;
+    const itemType = req.params.type;
 
-    console.log(userId, itemId)
+    console.log(itemId)
 
     try{
-        const existingLike = await Like.findOne({ user: userId, itemId })
-        if(existingLike){
-            return res.status(400).json({message: 'Vous avez déjà liker cet élément'})
-        }
-
+        const existingLike = await Like.findOne({ user: userId, [itemType]: itemId })
         console.log(existingLike)
 
-        const like = new Like({
-            user: userId,
-            itemId
-        })
+        if(existingLike) {
+            console.log(existingLike._id)
 
-        await like.save();
+            await Like.findByIdAndRemove(existingLike._id);
+            return res.status(200).json({message: 'Like remove'})
+        }else{
+            const like = new Like({
+                user: userId,
+                type: itemType,
+                [itemType]: itemId
+            })
 
-        return res.status(200).json({
-            data: like,
-            message: 'Like ajouté avec succès'
-        })
+            await like.save();
+
+            return res.status(200).json({
+                data: like,
+                message: 'Like ajouté avec succès'
+            })
+        }
     }
     catch(err){
         console.log(err)
-        return res.status(400).json({message: 'Impossible d\'ajouter un like'})
-    }
-
-}
-
-export const removeLike = async(req, res) => {
-
-    const userId = getUserIdFromToken(req);
-    const {type, itemId} = req.params;
-
-    try{
-        const existingLike = Like.findOne({ user: userId, type, itemId })
-        if(existingLike){
-            return res.status(400).json({message: 'Vous avez déjà liker cet élément'})
-        }
-
-        await Like.findByIdAndDelete(existingLike._id)
-
-        return res.status(200).json({message: 'Like supprimé avec succès'})
-    }
-    catch{
         return res.status(400).json({message: 'Impossible d\'ajouter un like'})
     }
 }
