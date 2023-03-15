@@ -6,21 +6,21 @@ const userSchema = mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
         unique: true,
         required: true,
         match: /.+\@.+\..+/,
-        
+
     },
     password:{
         type: String,
         required: true
     },
     isAdmin: {
-        type: Boolean, 
+        type: Boolean,
         default: false
     }
 },{

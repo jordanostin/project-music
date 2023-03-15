@@ -1,9 +1,8 @@
-import playlistSchema from '../models/playlistSchema.js'
-import { getUserIdFromToken} from '../utils/utils.js'
+import playlistSchema from '../models/playlistSchema.js';
 
 export const createPlaylist = async(req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
     const {name} = req.body
 
     try{
@@ -28,7 +27,7 @@ export const createPlaylist = async(req, res) => {
 
 export const addMusicPlaylist = async(req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
 
     try {
         

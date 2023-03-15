@@ -1,11 +1,12 @@
 import musicSchema from '../models/musicSchema.js';
 import formidable from 'formidable';
-import { getUserIdFromToken, copyFiles } from '../utils/utils.js';
+import { copyFiles } from '../utils/utils.js';
 import fs from 'fs';
+
 
 export const uploadAudio = async(req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
 
     const form = formidable({multiples: true});
 
@@ -73,9 +74,9 @@ export const uploadAudio = async(req, res) => {
 
 
 
-export const updateAudio = (req, res) => {
+export const updateAudio = async(req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
 
     const form = formidable({multiples: true});
 
@@ -84,6 +85,10 @@ export const updateAudio = (req, res) => {
         const musicId = req.params.id;
 
         const {name, description} = fields;
+
+        if(!name || !description){
+            return res.status(400).json({message : 'Les champs sont vide'})
+        }
 
         if(!files.image){
             const music = {
@@ -145,8 +150,6 @@ export const updateAudio = (req, res) => {
         }
     })
 }
-
-
 
 
 

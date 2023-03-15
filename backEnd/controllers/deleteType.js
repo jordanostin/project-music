@@ -2,7 +2,6 @@ import Comment from "../models/comSchema.js";
 import Music from "../models/musicSchema.js";
 import User from "../models/userSchema.js";
 import Playlist from "../models/playlistSchema.js";
-import { getUserIdFromToken } from "../utils/utils.js";
 import fs from "fs";
 
 
@@ -20,7 +19,7 @@ export const deleteType = async (req,res) => {
     const id = req.params.id;
 
     try {
-        const userId = getUserIdFromToken(req);
+        const userId = req.userId;
         const user = await User.findById(userId);
         const isAdmin = user.isAdmin;
         const item = await type.findById(id);
@@ -29,8 +28,12 @@ export const deleteType = async (req,res) => {
             if(!item){
                 return res.status(400).json({message: 'Element introuvable'})
             }
-            await User.findByIdAndDelete(id);
-            return res.status(200).json({message: 'Utilisateur supprimé'})
+
+            if(isAdmin){
+                await User.findByIdAndDelete(id);
+                return res.status(200).json({message: 'Utilisateur supprimé'})
+            }
+
         }
 
         if(type === Playlist){

@@ -5,6 +5,12 @@ import bcrypt from 'bcrypt';
 export const register = (req, res) => {
 
     const { name, email, password} = req.body;
+
+    const nameRegex = /^[a-zA-Z0-9\- ]+$/;
+
+    if(!nameRegex.test(name)){
+        return res.status(400).json({message : 'Le nom ne peut pas contenir de caractère spéciaux'})
+    }
     
     const user = new userSchema({
         name,
@@ -72,11 +78,11 @@ export const verifyToken  = async (req, res) => {
     const token = header && header.split(' ')[1];
 
     if(!token){
-        return res.status(401).json({mesage : 'no token provided'})
+        return res.status(401).json({message : 'no token provided'})
     }
 
     jwt.verify(token, process.env.JWT, async(err, decoded) => {
-        console.log(decoded);
+
         if(err){
             res.status(403).json({message : 'Unauthorized'});
             return

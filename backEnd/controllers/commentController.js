@@ -1,9 +1,8 @@
 import Comment from '../models/comSchema.js';
-import {getUserIdFromToken} from "../utils/utils.js";
 
 export const createComment = async(req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
     const {type, itemId} = req.params
     const {content} = req.body;
 
@@ -28,9 +27,9 @@ export const createComment = async(req, res) => {
     }
 }
 
-export const updateComment = (req, res) => {
+export const updateComment = async (req, res) => {
 
-    const userId = getUserIdFromToken(req);
+    const userId = req.userId;
     const commentId = req.params.id;
     const {content} = req.body;
 
