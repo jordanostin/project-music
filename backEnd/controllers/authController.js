@@ -11,6 +11,8 @@ export const register = (req, res) => {
     if(!nameRegex.test(name)){
         return res.status(400).json({message : 'Le nom ne peut pas contenir de caractère spéciaux'})
     }
+
+
     
     const user = new userSchema({
         name,
@@ -55,8 +57,9 @@ export const login = (req, res) => {
                 if (!match) {
                     return res.status(400).json({message : 'Identifiant invalide'});
                 }else{
-                    const token = jwt.sign({ email: user.email, isAdmin: user.isAdmin, _id: user._id}, process.env.JWT);
+                    const token = jwt.sign({ name: user.name, email: user.email, isAdmin: user.isAdmin, _id: user._id}, process.env.JWT);
                     user = {
+                        name: user.name,
                         email: email,
                         isAdmin: email === 'milo@gmail.com',
                         _id: user._id,
@@ -94,6 +97,7 @@ export const verifyToken  = async (req, res) => {
         }
         res.status(200).json({
             user:{
+                name: user.name,
                 email: user.email,
                 _id: user._id,
                 isAdmin: user.isAdmin
