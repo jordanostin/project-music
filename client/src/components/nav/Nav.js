@@ -20,7 +20,7 @@ export const Nav = () => {
                         <Link to='/upload'>Upload</Link>
                         {user.isAdmin && (
                             <>
-                                <p>Compte Admin</p>
+                                <Link to='/admin'>Admin</Link>
                             </>
                         )}
                     </>

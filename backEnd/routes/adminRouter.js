@@ -5,6 +5,7 @@ import { deleteType } from '../controllers/deleteType.js';
 import {addMusicPlaylist, createPlaylist} from "../controllers/playlistController.js";
 import {createComment} from "../controllers/commentController.js";
 import {toggleLike} from "../controllers/likeController.js";
+import {admin} from "../controllers/adminController.js";
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.post('/comment/:type/:itemId', createComment);
 
 router.get('/verify-token', verifyToken);
 router.get('/download/:id', downloadAudio);
+router.get('/back-office', admin);
 
 router.delete("/delete/:type/:id", deleteType);
 

@@ -62,7 +62,7 @@ export const Upload = () => {
 
     return (
         <>
-            <h1>Upload music</h1>
+            <h2>Upload music</h2>
 
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <label htmlFor='name'>Name</label>

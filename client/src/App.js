@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {addUser} from "./store/slices/user/userSlice";
-import {Home} from "./Pages/home/Home";
+import {Navigation} from "./routes/route";
 
 function App() {
 
@@ -36,8 +36,7 @@ function App() {
 
   return(
       <>
-          <h1>Projet-music</h1>
-          <Home />
+          <Navigation/>
       </>
   );
 }

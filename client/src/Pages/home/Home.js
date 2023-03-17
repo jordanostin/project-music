@@ -1,6 +1,5 @@
-import {Navigation} from "../../routes/route";
 import {useSelector} from "react-redux";
-
+import {Nav} from "../../components/nav/Nav";
 
 export const Home = () => {
 
@@ -8,7 +7,6 @@ export const Home = () => {
 
     return(
         <>
-            <Navigation />
             {user.isLogged ? (<p>Bonjour {user.name}</p>): null}
 
         </>
