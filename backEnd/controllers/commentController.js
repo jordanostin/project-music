@@ -1,4 +1,5 @@
 import Comment from '../models/comSchema.js';
+import Music from '../models/musicSchema.js';
 
 export const createComment = async(req, res) => {
 
@@ -16,8 +17,11 @@ export const createComment = async(req, res) => {
 
     try{
         await comment.save();
+
+        const music = await Music.findByIdAndUpdate(itemId, {$push: {comments: comment}});
+
         return res.status(200).json({
-            comment: comment
+            music
         });
     }catch(err){
         return res.status(400).json({
@@ -26,6 +30,7 @@ export const createComment = async(req, res) => {
         });
     }
 }
+
 
 export const updateComment = async (req, res) => {
 

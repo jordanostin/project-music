@@ -5,7 +5,7 @@ import {Navigation} from "./routes/route";
 
 function App() {
 
-    const user = useSelector(state => state);
+    const user = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {

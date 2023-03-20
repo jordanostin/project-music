@@ -14,17 +14,19 @@ export const DeleteUsers = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/admin/delete/user/${userId}`, {headers})
+        fetch(`http://localhost:9200/admin/delete/user/${userId}`, {
+            headers,
+            method: 'DELETE'
+        })
             .then(data => {
                 console.log(data)
-                console.log('ok')
+                navigate('/admin');
+                window.location.reload();
             })
             .catch(err => console.log(err))
 
-        navigate('/admin');
-        window.location.reload();
 
-    }, [])
+    },[])
 
     return null
 }

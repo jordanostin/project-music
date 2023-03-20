@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import userSchema from './userSchema.js'
-import musicSchema from './musicSchema.js'
 
 const comSchema = mongoose.Schema({
     
@@ -9,6 +7,12 @@ const comSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
+    itemId: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    content: {
+        type: String
+    },
     type: {
         type: String,
         enum: ['music', 'comment', 'playlist'],
@@ -16,9 +20,6 @@ const comSchema = mongoose.Schema({
     music: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Music'
-    },
-    content: {
-        type: String
     },
     comment: {
         type: mongoose.Schema.Types.ObjectId,

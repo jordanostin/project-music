@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {Nav} from "../../components/nav/Nav";
+import {Music} from "../../components/music/music";
 
 export const Home = () => {
 
@@ -7,8 +7,13 @@ export const Home = () => {
 
     return(
         <>
-            {user.isLogged ? (<p>Bonjour {user.name}</p>): null}
+            {user.isLogged ? (
+                <>
+                    <h2>Bonjour {user.name}</h2>
 
+                    <Music />
+                </>
+            ): null}
         </>
     );
 }

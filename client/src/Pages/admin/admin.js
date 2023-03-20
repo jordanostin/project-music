@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import logger from "../../store/config/middleware/logger";
 import {Link} from "react-router-dom";
 
 export const Admin = () => {
@@ -22,7 +21,7 @@ export const Admin = () => {
                 setMusics(data.musics);
             })
             .catch(err => console.log(err))
-    })
+    },[users, musics])
 
     const getUserName = (userId) => {
         const user = users.find((user) => user._id === userId);

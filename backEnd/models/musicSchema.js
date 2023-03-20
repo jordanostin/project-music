@@ -18,6 +18,12 @@ const musicSchema = mongoose.Schema({
     audio: {
         type: String
     },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ],
     like:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Like'

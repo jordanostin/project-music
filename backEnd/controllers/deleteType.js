@@ -6,7 +6,8 @@ import fs from "fs";
 
 
 export const deleteType = async (req,res) => {
-    
+
+
     let type = '';
     
     switch(req.params.type){

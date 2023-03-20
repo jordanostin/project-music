@@ -7,6 +7,9 @@ import {Home} from "../Pages/home/Home";
 import {Header} from "../components/header/header";
 import {Admin} from "../Pages/admin/admin";
 import {DeleteUsers} from "../components/delete/deleteUser";
+import {DeleteMusic} from "../components/delete/deleteMusic";
+import {Download} from "../components/download/download";
+import {Comment} from "../components/form/comment";
 
 export const Navigation = () => {
     return(
@@ -20,6 +23,9 @@ export const Navigation = () => {
                 <Route path='/upload' element={<Upload/>}/>
                 <Route path='/admin' element={<Admin />}/>
                 <Route path='/delete/user/:userId' element={<DeleteUsers/>}/>
+                <Route path='/delete/music/:musicId' element={<DeleteMusic />}/>
+                <Route path='/download/:musicId' element={<Download />}/>
+                <Route path='/comment/:itemId' element={<Comment />}/>
             </Routes>
         </BrowserRouter>
     );

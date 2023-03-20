@@ -50,6 +50,8 @@ export const Upload = () => {
             const audio = data.music.audio
 
             dispatch(addMusic({name, desc, image, audio}))
+            navigate('/')
+            window.location.reload();
         })
         .catch(err => {
             console.log(err)

@@ -7,6 +7,7 @@ export const musicSlice = createSlice({
         description:'',
         image:'',
         audio:'',
+        comments:[]
     },
     reducers: {
         addMusic: (state, action) => {
@@ -18,11 +19,17 @@ export const musicSlice = createSlice({
                 description: action.payload.description,
                 image: action.payload.image,
                 audio: action.payload.audio,
+                comments:[]
             }
+        },
+        addCommentToMusic: (state, action) => {
+            const { itemId, name, comment } = action.payload;
+            const music = state.find((music) => music.id === itemId);
+            music.comments = music.comments.push({ name, comment });
         }
     },
 })
 
-export const {addMusic} = musicSlice.actions
+export const {addMusic, addCommentToMusic} = musicSlice.actions
 
 export default musicSlice.reducer
