@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Comment from './comSchema.js'
 
 const musicSchema = mongoose.Schema({
     

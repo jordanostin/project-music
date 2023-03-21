@@ -45,12 +45,22 @@ export const deleteType = async (req,res) => {
             return res.status(200).json({message: 'Playlist supprimé'})
         }
 
-        if(type === Comment){
-            if(!item){
-                return res.status(400).json({message: 'Element introuvable'})
+        if (type === Comment) {
+            if (!item) {
+                return res.status(400).json({ message: "Element introuvable" });
             }
+
+            const music = await Music.findOneAndUpdate(
+                { comments: id },
+                { $pull: { comments: id } },
+            );
+
+            if (!music) {
+                return res.status(400).json({ message: "Element introuvable" });
+            }
+
             await Comment.findByIdAndDelete(id);
-            return res.status(200).json({message: 'Commentaire supprimé'})
+            return res.status(200).json({ message: "Commentaire supprimé" });
         }
 
         if(type === Music){

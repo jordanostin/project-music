@@ -2,12 +2,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {addComment} from "../../store/slices/comment/commentSlice";
 import {addCommentToMusic} from "../../store/slices/music/musicSlice";
+import {useEffect} from "react";
 
 export const Comment = () => {
 
     const dispatch = useDispatch();
     const {itemType, itemId} = useParams();
     const navigate = useNavigate();
+    const com = useSelector(state => state.comment)
+
+    useEffect(() => {
+        console.log(com)
+    },[com])
 
     let type;
 
@@ -23,13 +29,13 @@ export const Comment = () => {
 
         const token = localStorage.getItem("token");
 
-        const comments = {
+        const comment = {
             content: e.target.elements.content.value,
         }
 
         fetch(`http://localhost:9200/user/comment/music/${itemId}`, {
             method: 'POST',
-            body: JSON.stringify(comments),
+            body: JSON.stringify(comment),
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
@@ -37,24 +43,25 @@ export const Comment = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.user)
 
-                const name = data.user.name
-                const comment = data.comment
-                const type = data.type
-                const itemId = data.itemId
+                console.log(data)
 
-                dispatch(addComment({name,comment,type,itemId}));
+                const type = data.type;
+                const itemId = data.itemId;
 
-                dispatch(addCommentToMusic(itemId, {name, comment}))
+                console.log( comment, type, itemId)
+
+                dispatch(addComment({comment, type, itemId}))
 
 
             })
             .catch((err) => console.log(err));
 
         navigate('/');
-        window.location.reload();
+        //window.location.reload();
     }
+
+
 
     return(
         <>

@@ -18,6 +18,7 @@ export const Nav = () => {
                     <>
                         <Link to='/logout'>Logout</Link>
                         <Link to='/upload'>Upload</Link>
+                        <Link to='/playlist'>Playlist</Link>
                         {user.isAdmin && (
                             <>
                                 <Link to='/admin'>Admin</Link>

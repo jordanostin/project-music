@@ -7,8 +7,8 @@ const comSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
-    itemId: {
-        type: mongoose.Schema.Types.ObjectId
+    userName:{
+        type: String
     },
     content: {
         type: String

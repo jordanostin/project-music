@@ -5,6 +5,7 @@ export const Admin = () => {
 
     const [musics, setMusics] = useState([]);
     const [users, setUsers] = useState([]);
+    const [comments, setComments] = useState([])
 
     useEffect(() => {
 
@@ -19,6 +20,7 @@ export const Admin = () => {
             .then(data => {
                 setUsers(data.users);
                 setMusics(data.musics);
+                setComments(data.comments)
             })
             .catch(err => console.log(err))
     },[users, musics])
@@ -74,6 +76,31 @@ export const Admin = () => {
                         <td>{getUserName(music.user)}</td>
                         <td>{music.name}</td>
                         <td><Link to={`/delete/music/${music._id}`}>Delete</Link></td>
+                    </tr>
+                ))}
+                </tbody>
+
+            </table>
+
+            <h2>Commentaire</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>User</td>
+                    <td>Comment</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                {comments.map((comment,i) => (
+                    <tr key={i}>
+                        <td>{comment._id}</td>
+                        <td>{getUserName(comment.user)}</td>
+                        <td>{comment.content}</td>
+                        <td><Link to={`/delete/comment/${comment._id}`}>Delete</Link></td>
                     </tr>
                 ))}
                 </tbody>

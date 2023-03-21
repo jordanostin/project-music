@@ -14,9 +14,7 @@ export const createPlaylist = async(req, res) => {
         
         playlist.save()
         return res.status(201).json({
-            success: true,
-            message: 'Playlist créée avec succès',
-            data: playlist,
+            playlist,
         });
     }
     catch{

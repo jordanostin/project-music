@@ -22,11 +22,6 @@ export const musicSlice = createSlice({
                 comments:[]
             }
         },
-        addCommentToMusic: (state, action) => {
-            const { itemId, name, comment } = action.payload;
-            const music = state.find((music) => music.id === itemId);
-            music.comments = music.comments.push({ name, comment });
-        }
     },
 })
 
