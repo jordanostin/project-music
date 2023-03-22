@@ -18,14 +18,11 @@ export const Playlist = () => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/user/home', {headers})
+        fetch('http://localhost:9200/user/playlist/user', {headers})
             .then(res => res.json())
             .then(data => {
 
-
-                const userPlaylists = data.playlists.filter(playlist => playlist.user.toString() === user.id)
-
-                setPlaylists(userPlaylists)
+                setPlaylists(data)
 
             })
             .catch(err => console.log(err))

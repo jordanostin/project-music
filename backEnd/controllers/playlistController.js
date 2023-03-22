@@ -29,8 +29,6 @@ export const getUserPlaylist = async(req, res) => {
 
     const userId = req.userId;
 
-    console.log(userId)
-
     try{
         const user = await User.findById(userId)
 
