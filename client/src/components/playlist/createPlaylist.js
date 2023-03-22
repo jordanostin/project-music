@@ -4,12 +4,7 @@ import {useEffect} from "react";
 
 export const CreatePlaylist = () => {
 
-    const playlists = useSelector(state => state.playlist)
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(playlists)
-    },[playlists])
     const handleSubmit = (e) => {
         e.preventDefault();
 

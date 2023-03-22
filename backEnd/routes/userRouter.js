@@ -2,7 +2,7 @@ import express from 'express';
 import { downloadAudio, updateAudio, uploadAudio} from '../controllers/audioController.js';
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
-import { addMusicPlaylist, createPlaylist } from '../controllers/playlistController.js';
+import {addMusicPlaylist, createPlaylist, getUserPlaylist} from '../controllers/playlistController.js';
 import {toggleLike} from "../controllers/likeController.js";
 import {createComment, updateComment} from "../controllers/commentController.js";
 import {user} from "../controllers/userController.js";
@@ -17,7 +17,8 @@ router.post('/comment/:type/:itemId', createComment);
 
 router.get('/verify-token', verifyToken);
 router.get('/download/:id', downloadAudio);
-router.get('/home', user)
+router.get('/home', user);
+router.get('/playlist/user', getUserPlaylist);
 
 router.delete('/delete/:type/:id', deleteType);
 

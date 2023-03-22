@@ -10,8 +10,8 @@ import {DeleteUsers} from "../components/delete/deleteUser";
 import {DeleteMusic} from "../components/delete/deleteMusic";
 import {Download} from "../components/download/download";
 import {Comment} from "../components/form/comment";
-import {CreatePlaylist} from "../components/playlist/createPlaylist";
 import {DeleteComment} from "../components/delete/deleteComment";
+import {Playlist} from "../Pages/playlist/playlist";
 
 export const Navigation = () => {
     return(
@@ -29,7 +29,7 @@ export const Navigation = () => {
                 <Route path='/delete/comment/:commentId' element={<DeleteComment />}/>
                 <Route path='/download/:musicId' element={<Download />}/>
                 <Route path='/comment/:itemId' element={<Comment />}/>
-                <Route path='playlist' element={<CreatePlaylist/>}/>
+                <Route path='/playlist' element={<Playlist/>}/>
             </Routes>
         </BrowserRouter>
     );

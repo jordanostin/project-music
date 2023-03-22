@@ -82,7 +82,7 @@ export const Admin = () => {
 
             </table>
 
-            <h2>Commentaire</h2>
+            <h2>Comments</h2>
 
             <table>
                 <thead>

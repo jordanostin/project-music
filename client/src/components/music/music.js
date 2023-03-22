@@ -1,10 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 
 export const Music = () => {
-
-    const song = useSelector(state => state.music)
 
     const [musics, setMusics] = useState([]);
     const [users, setUsers] = useState([]);
@@ -27,11 +24,9 @@ export const Music = () => {
             .then(res => res.json())
             .then(data => {
 
-                console.log(data)
-
                 setUsers(data.users);
                 setMusics(data.musics);
-                setComments(data.comments)
+                setComments(data.comments);
             })
             .catch(err => console.log(err))
     },[])
@@ -41,7 +36,6 @@ export const Music = () => {
     return(
         <>
             {musics.map((music, i) => {
-                console.log(music)
                 return (
                     <div key={i}>
                         <h3>{music.name}</h3>

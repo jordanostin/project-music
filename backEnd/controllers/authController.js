@@ -95,7 +95,7 @@ export const verifyToken  = async (req, res) => {
         if(!user){
             res.status(400).json({message: 'token invalide'})
         }
-        res.status(200).json({
+        return res.status(200).json({
             user:{
                 name: user.name,
                 email: user.email,

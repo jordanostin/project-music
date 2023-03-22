@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import userSchema from "../models/userSchema.js";
+import playlistSchema from "../models/playlistSchema.js";
 
 const verifyToken = (req, res, next) => {
 
@@ -37,5 +38,5 @@ const isAdmin = (req, res, next) => {
 
 export const auth = {
     isAdmin,
-    verifyToken
+    verifyToken,
 }
