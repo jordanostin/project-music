@@ -2,7 +2,13 @@ import express from 'express';
 import { downloadAudio, updateAudio, uploadAudio} from '../controllers/audioController.js';
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
-import {addMusicPlaylist, createPlaylist, getUserPlaylist, showPlaylist} from '../controllers/playlistController.js';
+import {
+    addMusicPlaylist,
+    createPlaylist,
+    deleteMusicPlaylist,
+    getUserPlaylist,
+    showPlaylist
+} from '../controllers/playlistController.js';
 import {toggleLike} from "../controllers/likeController.js";
 import {createComment, updateComment} from "../controllers/commentController.js";
 import {user} from "../controllers/userController.js";
@@ -22,6 +28,7 @@ router.get('/playlist/user', getUserPlaylist);
 router.get('/playlist/:playlistId', showPlaylist)
 
 router.delete('/delete/:type/:id', deleteType);
+router.delete('/delete/playlist/:playlistId/music/:musicId', deleteMusicPlaylist)
 
 router.put('/update/user/:id', updateUser);
 router.put('/update/audio/:id', updateAudio);

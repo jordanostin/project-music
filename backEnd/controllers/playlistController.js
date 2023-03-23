@@ -71,6 +71,38 @@ export const addMusicPlaylist = async(req, res) => {
       }
 }
 
+export const deleteMusicPlaylist = async(req, res) => {
+    try {
+        const { playlistId, musicId } = req.params;
+
+        const playlist = await Playlist.findById(playlistId);
+
+        if (!playlist) {
+            return res.status(400).json({ message: 'Playlist introuvable' });
+        }
+
+        const musicIndex = playlist.musics.findIndex(
+            (music) => music._id.toString() === musicId
+        );
+
+        if (musicIndex === -1) {
+            return res.status(400).json({ message: 'Musique introuvable dans la playlist' });
+        }
+
+        playlist.musics.splice(musicIndex, 1);
+
+        await playlist.save();
+
+        return res.json({
+            message: 'Musique supprimée de la playlist avec succès',
+            playlist,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
+}
+
 export const showPlaylist = async(req, res) => {
     const {playlistId} = req.params;
 

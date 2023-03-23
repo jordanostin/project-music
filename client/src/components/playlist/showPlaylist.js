@@ -1,5 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 export const ShowPlaylist = () => {
 
@@ -42,6 +43,7 @@ export const ShowPlaylist = () => {
                                 </audio>
                                 <a href={`http://localhost:9200/public/${music.audio}`} download>Download</a>
                                 <br />
+                                <Link to={`/delete/playlist/${playlist._id}/music/${music._id}`}>Delete</Link>
                             </div>
                         );
                     })}
@@ -51,21 +53,5 @@ export const ShowPlaylist = () => {
             )}
         </>
     );
-
 }
-    /*<h2>{playlist.name}</h2>
-            {playlist.musics.map((music, i) => {
-                return (
-                    <div key={i}>
-                        <h3>{music.name}</h3>
-                        <p>{music.description}</p>
-                        {music.image ? (<img src={`http://localhost:9200/public/${music.image}`} />) : null}
-                        <audio controls>
-                            <source src={`http://localhost:9200/public/${music.audio}`} type='audio/mpeg' />
-                        </audio>
-                        <a href={`http://localhost:9200/public/${music.audio}`} download>Download</a>
-                        <br />
-                    </div>
-                );
-            })}*/
 
