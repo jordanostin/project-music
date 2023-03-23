@@ -71,3 +71,17 @@ export const addMusicPlaylist = async(req, res) => {
       }
 }
 
+export const showPlaylist = async(req, res) => {
+    const {playlistId} = req.params;
+
+    try{
+        const playlist = await Playlist.findById(playlistId).populate('musics');
+        if(!playlist){
+            return res.status(400).json({message: 'Playlist introuvable'})
+        }
+        return res.status(200).json(playlist);
+    } catch (err) {
+        return res.status(500).json({message: 'Erreur lors de la recherche de la playlist'})
+    }
+}
+

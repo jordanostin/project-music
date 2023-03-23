@@ -12,6 +12,8 @@ import {Download} from "../components/download/download";
 import {Comment} from "../components/form/comment";
 import {DeleteComment} from "../components/delete/deleteComment";
 import {Playlist} from "../Pages/playlist/playlist";
+import {ShowPlaylist} from "../components/playlist/showPlaylist";
+import {DeletePlaylist} from "../components/delete/deletePlaylist";
 
 export const Navigation = () => {
     return(
@@ -27,9 +29,11 @@ export const Navigation = () => {
                 <Route path='/delete/user/:userId' element={<DeleteUsers/>}/>
                 <Route path='/delete/music/:musicId' element={<DeleteMusic />}/>
                 <Route path='/delete/comment/:commentId' element={<DeleteComment />}/>
+                <Route path='/delete/playlist/:playlistId' element={<DeletePlaylist />}/>
                 <Route path='/download/:musicId' element={<Download />}/>
                 <Route path='/comment/:itemId' element={<Comment />}/>
                 <Route path='/playlist' element={<Playlist/>}/>
+                <Route path='/playlist/:playlistId' element={<ShowPlaylist />}/>
             </Routes>
         </BrowserRouter>
     );

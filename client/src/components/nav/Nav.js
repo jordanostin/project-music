@@ -11,17 +11,18 @@ export const Nav = () => {
             <nav>
                 {!user.isLogged ? (
                     <>
-                        <Link to='/login'>Login</Link>
-                        <Link to='/register'>Register</Link>
+                        <Link to='/login'>Login </Link>
+                        <Link to='/register'>Register </Link>
                     </>
                 ):(
                     <>
-                        <Link to='/logout'>Logout</Link>
-                        <Link to='/upload'>Upload</Link>
-                        <Link to='/playlist'>Playlist</Link>
+                        <Link to='/'>Home</Link>
+                        <Link to='/upload'>Upload </Link>
+                        <Link to='/playlist'>Playlist </Link>
+                        <Link to='/logout'>Logout </Link>
                         {user.isAdmin && (
                             <>
-                                <Link to='/admin'>Admin</Link>
+                                <Link to='/admin'>Admin </Link>
                             </>
                         )}
                     </>

@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {AddInPlaylist} from "../playlist/addInPlaylist";
+import {Like} from "../like/like";
 
 export const Music = () => {
 
@@ -54,7 +56,9 @@ export const Music = () => {
                                 </div>
                             );
                         })}
-                        <Link to={`/comment/${music._id}`}>Comment</Link>
+                        <Link to={`/comment/${music._id}`}>Comment </Link>
+                        <AddInPlaylist musicId={music._id}/>
+                        <Like musicId={music._id}/>
                     </div>
                 )
             })}

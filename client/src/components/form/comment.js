@@ -1,27 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {addComment} from "../../store/slices/comment/commentSlice";
-import {addCommentToMusic} from "../../store/slices/music/musicSlice";
-import {useEffect} from "react";
 
 export const Comment = () => {
 
     const dispatch = useDispatch();
-    const {itemType, itemId} = useParams();
+    const {itemId} = useParams();
     const navigate = useNavigate();
     const com = useSelector(state => state.comment)
-
-    useEffect(() => {
-        console.log(com)
-    },[com])
-
-    let type;
-
-    if(itemType === 'music'){
-        type = 'music'
-    }else{
-        type = 'comment'
-    }
 
     const handleSubmit = (e) => {
 
