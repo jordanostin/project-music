@@ -5,6 +5,10 @@ const likeSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    isLiked: {
+        type: Boolean,
+        default: false
+    },
     type: {
         type: String,
         enum: ['music', 'comment', 'playlist'],

@@ -9,7 +9,7 @@ import {
     getUserPlaylist,
     showPlaylist
 } from '../controllers/playlistController.js';
-import {toggleLike} from "../controllers/likeController.js";
+import {toggleLike, verifyLike} from "../controllers/likeController.js";
 import {createComment, updateComment} from "../controllers/commentController.js";
 import {user} from "../controllers/userController.js";
 
@@ -26,6 +26,7 @@ router.get('/download/:id', downloadAudio);
 router.get('/home', user);
 router.get('/playlist/user', getUserPlaylist);
 router.get('/playlist/:playlistId', showPlaylist)
+router.get('/music/:musicId', verifyLike)
 
 router.delete('/delete/:type/:id', deleteType);
 router.delete('/delete/playlist/:playlistId/music/:musicId', deleteMusicPlaylist)

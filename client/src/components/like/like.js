@@ -1,8 +1,25 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const Like = ({musicId}) => {
 
     const [isLiked, setIsLiked] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+        };
+
+        fetch(`http://localhost:9200/user/music/${musicId}`, {
+            headers,
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(data => {
+                setIsLiked(data.isLiked)
+            })
+            .catch(err => console.log(err));
+    }, []);
     const handleLike = () => {
 
         const token = localStorage.getItem('token');
@@ -17,8 +34,14 @@ export const Like = ({musicId}) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.message)
-                setIsLiked(!isLiked)
+
+                const like = data.isLiked
+
+                console.log(like)
+
+                setIsLiked(like)
+
+
             })
             .catch(err => console.log(err))
     }
@@ -29,3 +52,4 @@ export const Like = ({musicId}) => {
         </>
     );
 }
+
