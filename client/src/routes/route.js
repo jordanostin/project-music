@@ -15,6 +15,7 @@ import {Playlist} from "../Pages/playlist/playlist";
 import {ShowPlaylist} from "../components/playlist/showPlaylist";
 import {DeletePlaylist} from "../components/delete/deletePlaylist";
 import {DeleteMusicInPlaylist} from "../components/delete/deleteMusicInPlaylist";
+import {ShowMusic} from "../components/music/showMusic";
 
 export const Navigation = () => {
     return(
@@ -27,6 +28,7 @@ export const Navigation = () => {
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/upload' element={<Upload/>}/>
                 <Route path='/admin' element={<Admin />}/>
+                <Route path='/music/:musicId' element={<ShowMusic />}/>
                 <Route path='/delete/user/:userId' element={<DeleteUsers/>}/>
                 <Route path='/delete/music/:musicId' element={<DeleteMusic />}/>
                 <Route path='/delete/comment/:commentId' element={<DeleteComment />}/>

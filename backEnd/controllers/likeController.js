@@ -59,6 +59,8 @@ export const verifyLike = async(req, res) => {
 
         const music = await Music.findById(musicId);
 
+
+
         if (!music) {
             return res.status(404).json({ message: 'Musique introuvable' });
         }

@@ -168,3 +168,20 @@ export const downloadAudio = (req, res) => {
             return res.status(500).json({message: 'Erreur de téléchargement'});
         });
 };
+
+export const showMusic = async(req, res) => {
+    const musicId = req.params.musicId
+
+    try {
+        const music = await musicSchema.findById(musicId);
+
+        if (!music) {
+            return res.status(400).json({message: 'Musique introuvable'})
+        }
+
+        return res.status(200).json({music})
+    } catch(err) {
+        return res.status(500).json({message: 'Une erreur est survenue'})
+    }
+}
+
