@@ -1,5 +1,7 @@
 import {useSelector} from "react-redux";
 import {Music} from "../../components/music/music";
+import './home.scss'
+import {Log} from "../log/log";
 
 export const Home = () => {
 
@@ -13,7 +15,9 @@ export const Home = () => {
 
                     <Music />
                 </>
-            ): null}
+            ):(
+                <Log />
+            )}
         </>
     );
 }

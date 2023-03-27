@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import {Link} from "react-router-dom";
+import {Log} from "../../Pages/log/log";
 
 export const Nav = () => {
 
@@ -7,27 +8,21 @@ export const Nav = () => {
 
     return(
 
-        <>
-            <nav>
-                {!user.isLogged ? (
-                    <>
-                        <Link to='/login'>Login </Link>
-                        <Link to='/register'>Register </Link>
-                    </>
-                ):(
-                    <>
-                        <Link to='/'>Home</Link>
-                        <Link to='/upload'>Upload </Link>
-                        <Link to='/playlist'>Playlist </Link>
+        <nav>
+            {user.isLogged &&
+                <div className='link'>
+                    <Link to='/upload'>Upload </Link>
+                    <Link to='/playlist'>Playlist </Link>
+                </div>
+            }
+
+            {!user.isLogged ? null:(
+                <>
+                    <div className='logout'>
                         <Link to='/logout'>Logout </Link>
-                        {user.isAdmin && (
-                            <>
-                                <Link to='/admin'>Admin </Link>
-                            </>
-                        )}
-                    </>
-                )}
-            </nav>
-        </>
+                    </div>
+                </>
+            )}
+        </nav>
     );
 }

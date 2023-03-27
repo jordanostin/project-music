@@ -1,6 +1,7 @@
 import {useDispatch} from 'react-redux';
 import {useNavigate} from "react-router-dom";
 import {addUser} from "../../store/slices/user/userSlice";
+import './styles/register.scss'
 export const Register = () => {
 
     const dispatch = useDispatch();
@@ -43,19 +44,29 @@ export const Register = () => {
 
     return(
         <>
-            <h2>Register</h2>
+            <form onSubmit={handleSubmit} className='box'>
+                <div className='container'>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='name'>Pseudo</label>
-                <input type='text' id='name' name='name'/>
+                    <div className='top'>
+                        <h2>Register</h2>
+                    </div>
 
-                <label htmlFor='email'>Email</label>
-                <input type='text' id='email' name='email'/>
+                    <div className='input-field'>
+                        <input type='text' id='name' name='name' placeholder='Name' className='input'/>
+                    </div>
 
-                <label htmlFor='password'>Password</label>
-                <input type='password' id='password' name='password'/>
+                    <div className='input-field'>
+                        <input type='text' id='email' name='email' placeholder='Email' className='input'/>
+                    </div>
 
-                <input type='submit' value='Submit'/>
+                    <div className='input-field'>
+                        <input type='password' id='password' name='password' placeholder='Password' className='input'/>
+                    </div>
+
+                    <div className='input-field'>
+                        <input type="Submit" defaultValue='Register' className='submit'/>
+                    </div>
+                </div>
             </form>
         </>
     );

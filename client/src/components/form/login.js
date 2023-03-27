@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {addUser} from "../../store/slices/user/userSlice";
 import {useNavigate} from "react-router-dom";
+import './styles/login.scss'
 
 export const Login = () => {
 
@@ -43,18 +44,26 @@ export const Login = () => {
     }
 
     return(
-        <>
-            <h2>Login</h2>
+            <form onSubmit={handleSubmit} className='box'>
+                <div className='container'>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='email'>Email</label>
-                <input type='text' id='email' name='email'/>
+                    <div className='top'>
+                        <h2>Login</h2>
+                    </div>
 
-                <label htmlFor='password'> Password</label>
-                <input type='password' id='password' name='password'/>
+                    <div className='input-field'>
+                        <input type='text' id='email' name='email' placeholder='email' className='input'/>
+                    </div>
 
-                <input type="Submit" defaultValue='Login'/>
+                    <div className='input-field'>
+                        <input type='password' id='password' name='password' placeholder='password' className='input'/>
+                    </div>
+
+                    <div className='input-field'>
+                        <input type="Submit" defaultValue='Login' className='submit'/>
+                    </div>
+
+                </div>
             </form>
-        </>
     );
 }
