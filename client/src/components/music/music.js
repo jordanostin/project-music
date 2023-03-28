@@ -33,7 +33,7 @@ export const Music = () => {
         infinite: true,
         speed: 500,
         centerMode: true,
-        slidesToShow: 3,
+        slidesToShow: 5,
         slidesToScroll: 1,
         responsive: [
             {
@@ -59,6 +59,7 @@ export const Music = () => {
                 {musics.map((music, i) =>{
                     return(
                         <div key={i} className='image-music' >
+                            <p className='name'>{music.name}</p>
                             {music.image ? (
                                 <Link to={`/music/${music._id}`}><img src={`http://localhost:9200/public/${music.image}`} alt="Image de la musique"/></Link>
                                 ) : (

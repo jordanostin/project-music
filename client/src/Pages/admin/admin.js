@@ -1,11 +1,15 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export const Admin = () => {
 
+    const user = useSelector(state => state.user);
+    const navigate = useNavigate();
+
     const [musics, setMusics] = useState([]);
     const [users, setUsers] = useState([]);
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
 
@@ -21,6 +25,10 @@ export const Admin = () => {
                 setUsers(data.users);
                 setMusics(data.musics);
                 setComments(data.comments)
+
+                if(!user.isAdmin){
+                    navigate('/')
+                }
             })
             .catch(err => console.log(err))
     },[users, musics])

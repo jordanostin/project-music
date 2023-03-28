@@ -30,7 +30,7 @@ const isAdmin = (req, res, next) => {
             if(user.isAdmin){
                 next()
             } else {
-                return res.status(401).send({message: "Unauthorized! 2"});
+                return res.status(401).send({message: "Vous n'êtes pas autorisé"});
             }
         })
         .catch((err) => res.status(401).send({message: "Unauthorized! 3"}))
