@@ -9,11 +9,16 @@ export const Home = () => {
 
     return(
         <>
+
             {user.isLogged ? (
                 <>
-                    <h2>Bonjour {user.name}</h2>
+                    <div className='fond'></div>
+                    <div className='welcome'>
+                        <h2>Bonjour {user.name}</h2>
+                    </div>
 
                     <Music />
+
                 </>
             ):(
                 <Log />

@@ -1,40 +1,145 @@
-header{
-    margin: 1%;
+@import '../../styles/screen.scss';
+
+header {
+    margin: 1% auto;
     display: flex;
     justify-content: space-between;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #678490;
+    width: 90%;
 
     .title-admin{
         display: flex;
         width: 25%;
         justify-content: space-between;
 
-        a{
+        .logo{
+            width: 110px;
+            height: 40px;
+        }
+
+        .admin{
             margin: auto;
             text-decoration: none;
             color: #678490;
+        }
+
+        .admin:hover{
+            padding: 5px 10px;
+            border-radius: 10px;
+            background-color: #00a9e2;
+            color: #f8fcfe;
         }
     }
 
     nav{
+        width: 50%;
         display: flex;
-        width: 25%;
-        justify-content: space-evenly;
+        justify-content: flex-end;
+    }
 
-        a{
-            text-decoration: none;
-            color: #678490;
-            margin: auto;
+    .burger-menu{
+        height: 100%;
+        width: 4em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        cursor: pointer;
+
+        @include desktop{
+            display: none;
         }
     }
 
-    .logout{
+    .burger-bar{
+        width: 4em;
+        height: 0.5em;
+        background-color: #00a9e2;
+        border-radius: 0.5em;
+    }
+
+    .menu {
+        width: 10%;
+        position: absolute;
+        top: 0;
         display: flex;
-        width: 25%;
-        flex-direction: row-reverse;
-        a{
+        flex-direction: column;
+
+        @include desktop {
+            position: inherit;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin: auto;
+            width: 100%;
+        }
+
+        .logout{
+            width: 100%;
+
+            @include desktop{
+                width: 10%;
+            }
+        }
+
+        a {
             text-decoration: none;
             color: #678490;
-            margin: auto;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+
+            &:hover {
+                background-color: #00a9e2;
+                color: #f8fcfe;
+            }
+        }
+
+
+    }
+
+    /*----------sliding menu-----------*/
+
+    .hidden{
+        display: none;
+        @include desktop{
+            display: inherit;
         }
     }
+
+    .visible{
+        display: flex;
+        align-items: flex-end;
+        top: 100px;
+    }
+
+    /*------------ animation ------------*/
+
+
+    /* clicked */
+    .burger-bar.clicked:nth-child(1){
+        transform: rotate(45deg) translate(0.75em, 1.25em);
+        transition: ease-out 0.5s;
+    }
+
+    .burger-bar.clicked:nth-child(2){
+        transform: scale(0.1);
+        transition: ease-out 0.5s;
+    }
+
+    .burger-bar.clicked:nth-child(3){
+        transform: rotate(135deg) translate(-0.5em, 1em);
+        transition: ease-out 0.5s;
+    }
+
+
+    /* unclicked */
+
+    .burger-bar.unclicked{
+        tranform: rotate(0) translate(0);
+        transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+    }
+
 }

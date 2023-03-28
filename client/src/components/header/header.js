@@ -9,17 +9,16 @@ export const Header = () => {
     const user = useSelector(state => state.user)
 
     return(
-      <header>
-          <div className='title-admin'>
-              <Link to='/'><img src={logo} alt=""/></Link>
-              {user.isAdmin && (
-                  <>
-                      <Link to='/admin'>Admin </Link>
-                  </>
-              )}
-          </div>
-
-          <Nav/>
-      </header>
+        <header>
+            <div className='title-admin'>
+                <Link to='/'><img src={logo} alt="" className='logo'/></Link>
+                {user.isAdmin && (
+                    <>
+                        <Link to='/admin' className='admin'>Admin </Link>
+                    </>
+                )}
+            </div>
+            <Nav/>
+        </header>
     )
 }
