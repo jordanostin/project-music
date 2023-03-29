@@ -14,7 +14,7 @@ export const DeleteComment = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/admin/delete/comment/${commentId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/admin/delete/comment/${commentId}`, {
             headers,
             method: 'DELETE'
         })

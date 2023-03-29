@@ -19,7 +19,7 @@ export const Comment = () => {
             content: e.target.elements.content.value,
         }
 
-        fetch(`http://localhost:9200/user/comment/music/${itemId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/comment/music/${itemId}`, {
             method: 'POST',
             body: JSON.stringify(comment),
             headers: {

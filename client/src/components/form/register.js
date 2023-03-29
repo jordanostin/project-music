@@ -11,7 +11,7 @@ export const Register = () => {
 
         const newUser = new FormData(e.target);
 
-        fetch('http://localhost:9200/auth/register', {
+        fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
             method: 'POST',
             body: JSON.stringify({
                 name: newUser.get('name'),

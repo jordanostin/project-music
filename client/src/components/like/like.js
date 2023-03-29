@@ -10,7 +10,7 @@ export const Like = ({musicId}) => {
             'Authorization': `Bearer ${token}`,
         };
 
-        fetch(`http://localhost:9200/user/music/${musicId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/music/${musicId}`, {
             headers,
             method: 'GET'
         })
@@ -28,7 +28,7 @@ export const Like = ({musicId}) => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/user/music/${musicId}/toggleLike`,{
+        fetch(`${process.env.REACT_APP_API_URL}/user/music/${musicId}/toggleLike`,{
             headers,
             method: 'POST'
         })

@@ -19,7 +19,7 @@ export const Admin = () => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/admin/back-office', {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/admin/back-office`, {headers})
             .then(res => res.json())
             .then(data => {
                 setUsers(data.users);

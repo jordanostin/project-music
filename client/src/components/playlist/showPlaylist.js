@@ -16,7 +16,7 @@ export const ShowPlaylist = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/user/playlist/${playlistId}`, { headers })
+        fetch(`${process.env.REACT_APP_API_URL}/user/playlist/${playlistId}`, { headers })
             .then(res => res.json())
             .then(data => {
                 setPlaylist(data);
@@ -37,11 +37,11 @@ export const ShowPlaylist = () => {
                             <div key={i}>
                                 <h3>{music.name}</h3>
                                 <p>{music.description}</p>
-                                {music.image ? (<img src={`http://localhost:9200/public/${music.image}`} />) : null}
+                                {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} />) : null}
                                 <audio controls>
-                                    <source src={`http://localhost:9200/public/${music.audio}`} type='audio/mpeg' />
+                                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
                                 </audio>
-                                <a href={`http://localhost:9200/public/${music.audio}`} download>Download</a>
+                                <a href={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} download>Download</a>
                                 <br />
                                 <Link to={`/delete/playlist/${playlist._id}/music/${music._id}`}>Delete</Link>
                             </div>

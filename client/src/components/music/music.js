@@ -20,7 +20,7 @@ export const Music = () => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/user/home', {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/user/home`, {headers})
             .then(res => res.json())
             .then(data => {
                 setMusics(data.musics);
@@ -31,26 +31,10 @@ export const Music = () => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 400,
         centerMode: true,
         slidesToShow: 5,
         slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
     };
 
     return(
@@ -61,7 +45,7 @@ export const Music = () => {
                         <div key={i} className='image-music' >
                             <p className='name'>{music.name}</p>
                             {music.image ? (
-                                <Link to={`/music/${music._id}`}><img src={`http://localhost:9200/public/${music.image}`} alt="Image de la musique"/></Link>
+                                <Link to={`/music/${music._id}`}><img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} alt="Image de la musique"/></Link>
                                 ) : (
                                 <Link to={`/music/${music._id}`}><img src={defaultImage} alt="Image de base"/></Link>
                             )}

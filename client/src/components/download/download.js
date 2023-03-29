@@ -12,7 +12,7 @@ export const Download = () => {
             "Content-type": "application/json",
         };
 
-        fetch(`http://localhost:9200/user/download/${musicId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/download/${musicId}`, {
             headers,
             method: "GET",
             responseType: "blob",

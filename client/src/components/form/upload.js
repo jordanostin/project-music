@@ -33,7 +33,7 @@ export const Upload = () => {
         music.append('audio', audio);
         music.append('image', image);
 
-        fetch(`http://localhost:9200/${role}/upload`, {
+        fetch(`${process.env.REACT_APP_API_URL}/${role}/upload`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`

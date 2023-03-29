@@ -22,7 +22,7 @@ export const ShowMusic = () => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/user/home', {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/user/home`, {headers})
             .then(res => res.json())
             .then(data => {
                 setComments(data.comments);
@@ -38,7 +38,7 @@ export const ShowMusic = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/user/show-music/${musicId}`, {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/user/show-music/${musicId}`, {headers})
             .then(res => res.json())
             .then(data => {
                 setMusic(data.music)
@@ -49,10 +49,10 @@ export const ShowMusic = () => {
     return(
         <>
             <h3>{music.name}</h3>
-            {music.image ? (<img src={`http://localhost:9200/public/${music.image}`}/>): null}
+            {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`}/>): null}
             {music.audio && (
                 <audio controls>
-                    <source src={`http://localhost:9200/public/${music.audio}`} type='audio/mpeg' />
+                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
                 </audio>
             )}
             {music.comments && music.comments.map((commentId, i) => {

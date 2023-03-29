@@ -13,7 +13,7 @@ export const Playlist = () => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/user/playlist/user', {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/user/playlist/user`, {headers})
             .then(res => res.json())
             .then(data => {
 

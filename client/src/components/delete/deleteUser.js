@@ -14,7 +14,7 @@ export const DeleteUsers = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/admin/delete/user/${userId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/admin/delete/user/${userId}`, {
             headers,
             method: 'DELETE'
         })

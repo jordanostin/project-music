@@ -12,7 +12,7 @@ export const AddInPlaylist = ( {musicId} ) => {
             'Content-type': 'application/json'
         };
 
-        fetch('http://localhost:9200/user/playlist/user', {headers})
+        fetch(`${process.env.REACT_APP_API_URL}/user/playlist/user`, {headers})
             .then(res => res.json())
             .then(data => {
 
@@ -29,7 +29,7 @@ export const AddInPlaylist = ( {musicId} ) => {
             "Content-type": "application/json",
         };
 
-        fetch(`http://localhost:9200/user/playlist/${playlistId}/musics/${musicId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/playlist/${playlistId}/musics/${musicId}`, {
             method: "POST",
             headers,
         })

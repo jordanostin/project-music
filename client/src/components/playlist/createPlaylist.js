@@ -14,7 +14,7 @@ export const CreatePlaylist = () => {
             name: e.target.elements.name.value,
         }
 
-        fetch(`http://localhost:9200/user/create-playlist`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/create-playlist`, {
             method: 'POST',
             body: JSON.stringify(playlist),
             headers: {

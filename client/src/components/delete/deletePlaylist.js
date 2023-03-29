@@ -14,7 +14,7 @@ export const DeletePlaylist = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/user/delete/playlist/${playlistId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/delete/playlist/${playlistId}`, {
             headers,
             method: 'DELETE'
         })

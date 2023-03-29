@@ -13,7 +13,7 @@ export const Login = () => {
 
         const user = new FormData(e.target);
 
-        fetch('http://localhost:9200/auth/login', {
+        fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
             method:'POST',
             body: JSON.stringify({
                 email: user.get('email'),

@@ -14,7 +14,7 @@ export const DeleteMusic = () => {
             'Content-type': 'application/json'
         };
 
-        fetch(`http://localhost:9200/admin/delete/music/${musicId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/admin/delete/music/${musicId}`, {
             headers,
             method: 'DELETE'
         })

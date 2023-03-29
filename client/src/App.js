@@ -19,7 +19,7 @@ function App() {
 
         if (token){
 
-            fetch('http://localhost:9200/auth/verify-token', {headers})
+            fetch(`${process.env.REACT_APP_API_URL}/auth/verify-token`, {headers})
                 .then(res => res.json())
                 .then(data => {
                     dispatch(addUser(data.user))
