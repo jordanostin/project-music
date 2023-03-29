@@ -1,3 +1,2 @@
 node_modules
-backEnd/.env
-client/.env
+.env
