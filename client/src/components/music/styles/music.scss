@@ -1,29 +1,48 @@
-.name{
-    width: 100%;
-    text-align: center;
-    color: #fff;
-}
+.music-carousel{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 
-.image-music{
-    width: 100px;
-    height: 100px;
+    .image-music{
+        width: 100px;
+        height: 100px;
 
-    img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 }
 
 /*------ carousel -------*/
 
 .carousel{
-    width: 80%;
-    margin: auto ;
+    width: 60%;
+    margin: auto;
+
+    .slick-list{
+        margin-top: 1%;
+    }
+
+    .slick-slide {
+        margin: 10px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+        opacity: 0.4;
+    }
+
+    .slick-current {
+        opacity: 1;
+    }
 }
 
-.slick-slide {
-    margin: 10px auto;
-}
+.audio-player{
 
+
+    .audio-title{
+        color: #fff;
+    }
+
+}
 

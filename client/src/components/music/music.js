@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import Slider from "react-slick";
 import defaultImage from "../../public/images/mp3.png";
@@ -6,11 +6,11 @@ import './styles/music.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css'
 
-
 export const Music = () => {
 
     const [musics, setMusics] = useState([]);
-
+    const [currentMusic, setCurrentMusic] = useState(null);
+    const audioRef = useRef(null);
 
     useEffect(() => {
 
@@ -24,9 +24,18 @@ export const Music = () => {
             .then(res => res.json())
             .then(data => {
                 setMusics(data.musics);
+                setCurrentMusic(data.musics[Math.floor(data.musics.length / 2)]);
             })
             .catch(err => console.log(err))
-    },[])
+    }, []);
+
+    useEffect(() => {
+        if (currentMusic && audioRef.current) {
+            audioRef.current.src = `${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`;
+            audioRef.current.load();
+            audioRef.current.play();
+        }
+    }, [currentMusic]);
 
     const settings = {
         dots: true,
@@ -35,24 +44,39 @@ export const Music = () => {
         centerMode: true,
         slidesToShow: 5,
         slidesToScroll: 1,
+        beforeChange: (current, next) => {
+            setCurrentMusic(musics[next]);
+        }
     };
 
-    return(
+    return (
+        <>
         <div className='carousel'>
             <Slider {...settings}>
-                {musics.map((music, i) =>{
-                    return(
-                        <div key={i} className='image-music' >
-                            <p className='name'>{music.name}</p>
-                            {music.image ? (
-                                <Link to={`/music/${music._id}`}><img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} alt="Image de la musique"/></Link>
+                {musics.map((music, i) => {
+                    return (
+                        <div key={i} className='music-carousel'>
+                            <div className='image-music'>
+                                {music.image ? (
+                                        <Link to={`/music/${music._id}`}><img
+                                            src={`${process.env.REACT_APP_API_URL}/public/${music.image}`}
+                                            alt="Image de la musique"/></Link>
                                 ) : (
-                                <Link to={`/music/${music._id}`}><img src={defaultImage} alt="Image de base"/></Link>
-                            )}
+                                        <Link to={`/music/${music._id}`}><img src={defaultImage}
+                                                                              alt="Image de base"/></Link>
+                                )}
+                            </div>
                         </div>
                     );
                 })}
             </Slider>
         </div>
+        {currentMusic && (
+            <div className="audio-player">
+                <p className="audio-title">{currentMusic.name}</p>
+                <audio ref={audioRef} controls/>
+            </div>
+        )}
+        </>
     );
 }
