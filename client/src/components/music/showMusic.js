@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {AddInPlaylist} from "../playlist/addInPlaylist";
 import {Like} from "../like/like";
+import './styles/showMusic.scss'
 
 export const ShowMusic = () => {
 
@@ -48,8 +49,8 @@ export const ShowMusic = () => {
 
     return(
         <>
-            <h3>{music.name}</h3>
-            {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`}/>): null}
+            <h3 className='title'>{music.name}</h3>
+            {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className='image'/>): null}
             {music.audio && (
                 <audio controls>
                     <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />

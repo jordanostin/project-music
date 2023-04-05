@@ -51,32 +51,36 @@ export const Music = () => {
 
     return (
         <>
-        <div className='carousel'>
-            <Slider {...settings}>
-                {musics.map((music, i) => {
-                    return (
-                        <div key={i} className='music-carousel'>
-                            <div className='image-music'>
-                                {music.image ? (
+            <div className='carousel'>
+                <Slider {...settings}>
+                    {musics.map((music, i) => {
+                        return (
+                            <div key={i} className='music-carousel'>
+                                <div className='image-music'>
+                                    {music.image ? (
                                         <Link to={`/music/${music._id}`}><img
                                             src={`${process.env.REACT_APP_API_URL}/public/${music.image}`}
                                             alt="Image de la musique"/></Link>
-                                ) : (
+                                    ) : (
                                         <Link to={`/music/${music._id}`}><img src={defaultImage}
                                                                               alt="Image de base"/></Link>
-                                )}
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    );
-                })}
-            </Slider>
-        </div>
-        {currentMusic && (
-            <div className="audio-player">
-                <p className="audio-title">{currentMusic.name}</p>
-                <audio ref={audioRef} controls/>
+                        );
+                    })}
+                </Slider>
             </div>
-        )}
+            {currentMusic && (
+                <div className="audio-player">
+                    <p className="audio-title">{currentMusic.name}</p>
+                    <audio ref={audioRef} controls/>
+                </div>
+            )}
         </>
     );
 }
+
+/*{currentMusic && (
+                <AudioPlayer src={`${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`} />
+            )}*/
