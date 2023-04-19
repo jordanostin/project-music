@@ -1,14 +1,8 @@
 import express from 'express';
-import {downloadAudio, showMusic, updateAudio, uploadAudio} from '../controllers/audioController.js';
+import {downloadAudio, latestMusic, showMusic, updateAudio, uploadAudio} from '../controllers/audioController.js';
 import { updateUser, verifyToken } from '../controllers/authController.js';
 import { deleteType } from '../controllers/deleteType.js';
-import {
-    addMusicPlaylist,
-    createPlaylist,
-    deleteMusicPlaylist,
-    getUserPlaylist,
-    showPlaylist
-} from '../controllers/playlistController.js';
+import {addMusicPlaylist, createPlaylist, deleteMusicPlaylist, getUserPlaylist, showPlaylist} from '../controllers/playlistController.js';
 import {toggleLike, verifyLike} from "../controllers/likeController.js";
 import {createComment, updateComment} from "../controllers/commentController.js";
 import {user} from "../controllers/userController.js";
@@ -25,9 +19,10 @@ router.get('/verify-token', verifyToken);
 router.get('/download/:id', downloadAudio);
 router.get('/home', user);
 router.get('/playlist/user', getUserPlaylist);
-router.get('/playlist/:playlistId', showPlaylist)
-router.get('/music/:musicId', verifyLike)
-router.get('/show-music/:musicId', showMusic)
+router.get('/playlist/:playlistId', showPlaylist);
+router.get('/music/:musicId', verifyLike);
+router.get('/show-music/:musicId', showMusic);
+router.get('/latestmusic', latestMusic);
 
 router.delete('/delete/:type/:id', deleteType);
 router.delete('/delete/playlist/:playlistId/music/:musicId', deleteMusicPlaylist)

@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import {Music} from "../../components/music/music";
 import './home.scss'
 import {Log} from "../log/log";
+import {LatestMusic} from "../../components/latestmusic/LatestMusic";
 
 export const Home = () => {
 
@@ -18,6 +19,8 @@ export const Home = () => {
                     </div>
 
                     <Music />
+
+                    <LatestMusic />
 
                 </>
             ):(

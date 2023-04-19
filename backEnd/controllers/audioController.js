@@ -185,3 +185,12 @@ export const showMusic = async(req, res) => {
     }
 }
 
+export const latestMusic = async (req, res) => {
+    try {
+        const latestMusic = await musicSchema.find().sort({ createdAt: -1 }).limit(10);
+        res.status(200).json(latestMusic);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Error fetching latest music" });
+    }
+};
