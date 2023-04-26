@@ -5,6 +5,7 @@ import defaultImage from "../../public/images/mp3.png";
 import './styles/music.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css'
+import {AudioPlayer} from "../audioPlayer/AudioPlayer";
 
 export const Music = () => {
 
@@ -72,15 +73,22 @@ export const Music = () => {
                 </Slider>
             </div>
             {currentMusic && (
-                <div className="audio-player">
-                    <p className="audio-title">{currentMusic.name}</p>
-                    <audio ref={audioRef} controls/>
-                </div>
+                <>
+                    <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`} />
+                </>
             )}
         </>
     );
 }
 
 /*{currentMusic && (
-                <AudioPlayer src={`${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`} />
+                <>
+                <div className="audio-player">
+                    <p className="audio-title">{currentMusic.name}</p>
+                    <audio ref={audioRef} controls/>
+                </div>
+
+                <AudioPlayer />
+
+                </>
             )}*/
