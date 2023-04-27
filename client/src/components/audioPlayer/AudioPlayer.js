@@ -4,6 +4,7 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import "./audioPlayer.scss";
 
 export const AudioPlayer = ({ trackUrl }) => {
+
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);

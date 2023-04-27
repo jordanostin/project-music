@@ -22,8 +22,6 @@ export const LatestMusic = () => {
             .catch(err => console.log(err))
     },[])
 
-    console.log(latestMusic)
-
     return(
         <div className='show'>
             <h3 className='title-music-added'>Recently added</h3>

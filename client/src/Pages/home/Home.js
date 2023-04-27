@@ -4,10 +4,12 @@ import './home.scss'
 import {Log} from "../log/log";
 import {LatestMusic} from "../../components/latestmusic/LatestMusic";
 import {AudioPlayer} from "../../components/audioPlayer/AudioPlayer";
+import {useState} from "react";
 
 export const Home = () => {
 
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.user);
+    const [link, setLink] = useState(null);
 
     return(
         <>
@@ -19,9 +21,11 @@ export const Home = () => {
                         <h2>Bonjour {user.name}</h2>
                     </div>
 
-                    <Music />
+                    <Music setLink={setLink}/>
 
                     <LatestMusic />
+
+                    <AudioPlayer trackUrl={link} />
 
                 </>
             ):(
