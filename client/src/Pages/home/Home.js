@@ -10,6 +10,7 @@ export const Home = () => {
 
     const user = useSelector(state => state.user);
     const [link, setLink] = useState(null);
+    const[nameMusic, setNameMusic] = useState(null)
 
     return(
         <>
@@ -21,11 +22,11 @@ export const Home = () => {
                         <h2>Bonjour {user.name}</h2>
                     </div>
 
-                    <Music setLink={setLink}/>
+                    <Music setLink={setLink} setNameMusic={setNameMusic}/>
 
                     <LatestMusic />
 
-                    <AudioPlayer trackUrl={link} />
+                    <AudioPlayer trackUrl={link} nameMusic={nameMusic}/>
 
                 </>
             ):(

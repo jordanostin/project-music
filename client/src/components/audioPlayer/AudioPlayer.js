@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import "./audioPlayer.scss";
 
-export const AudioPlayer = ({ trackUrl }) => {
+export const AudioPlayer = ({trackUrl, nameMusic}) => {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -56,32 +56,37 @@ export const AudioPlayer = ({ trackUrl }) => {
     };
 
     return (
-        <div className="audio-player">
-            <div className="play-pause" onClick={togglePlay}>
-                <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+        <div className='player'>
+            <p className='music-title'>{nameMusic}</p>
+
+            <div className="audio-player">
+
+                <div className="play-pause" onClick={togglePlay}>
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+                </div>
+                <div className="time">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+                <div className="progress">
+                    <div
+                        className="progress-bar"
+                        style={{ width: `${(currentTime / duration) * 100}%` }}
+                    />
+                </div>
+                <div className="volume">
+                    <label htmlFor="volume-control">Volume:</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.1"
+                        value={volume}
+                        onChange={handleVolumeChange}
+                        id="volume-control"
+                    />
+                </div>
+                <audio src={trackUrl} ref={audioRef} />
             </div>
-            <div className="time">
-                {formatTime(currentTime)} / {formatTime(duration)}
-            </div>
-            <div className="progress">
-                <div
-                    className="progress-bar"
-                    style={{ width: `${(currentTime / duration) * 100}%` }}
-                />
-            </div>
-            <div className="volume">
-                <label htmlFor="volume-control">Volume:</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    id="volume-control"
-                />
-            </div>
-            <audio src={trackUrl} ref={audioRef} />
         </div>
     );
 };

@@ -6,7 +6,7 @@ import './styles/music.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css'
 
-export const Music = ({setLink}) => {
+export const Music = ({setLink, setNameMusic}) => {
 
     const [musics, setMusics] = useState([]);
     const [currentMusic, setCurrentMusic] = useState(null);
@@ -34,6 +34,7 @@ export const Music = ({setLink}) => {
             const url = `${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`;
             setMusicUrl(url);
             setLink(url)
+            setNameMusic(currentMusic.name)
         }
     };
 
@@ -66,6 +67,7 @@ export const Music = ({setLink}) => {
                                                                               alt="Image de base"/></Link>
                                     )}
                                 </div>
+                                <p className='music-name'>{music.name}</p>
                             </div>
                         );
                     })}
