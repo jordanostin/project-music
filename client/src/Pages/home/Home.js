@@ -12,6 +12,8 @@ export const Home = () => {
     const [link, setLink] = useState(null);
     const[nameMusic, setNameMusic] = useState(null)
 
+    console.log(link, nameMusic)
+
     return(
         <>
 

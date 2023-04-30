@@ -1,12 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
 import {addComment} from "../../store/slices/comment/commentSlice";
 
-export const Comment = () => {
+export const Comment = ({id}) => {
 
     const dispatch = useDispatch();
-    const {itemId} = useParams();
-    const navigate = useNavigate();
     const com = useSelector(state => state.comment)
 
     const handleSubmit = (e) => {
@@ -19,7 +16,7 @@ export const Comment = () => {
             content: e.target.elements.content.value,
         }
 
-        fetch(`${process.env.REACT_APP_API_URL}/user/comment/music/${itemId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/comment/music/${id}`, {
             method: 'POST',
             body: JSON.stringify(comment),
             headers: {
@@ -30,23 +27,15 @@ export const Comment = () => {
             .then((res) => res.json())
             .then((data) => {
 
-                console.log(data)
-
                 const type = data.type;
                 const itemId = data.itemId;
 
-                console.log( comment, type, itemId)
-
                 dispatch(addComment({comment, type, itemId}))
-
-
             })
             .catch((err) => console.log(err));
 
-        navigate('/');
-        //window.location.reload();
+        window.location.reload();
     }
-
 
 
     return(
