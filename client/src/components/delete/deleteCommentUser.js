@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const DeleteCommentUser = ({id}) => {
+export const DeleteCommentUser = () => {
 
     const {commentId} = useParams();
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const DeleteCommentUser = ({id}) => {
         })
             .then(data => {
                 console.log(data)
-                navigate(`/music/${id}`);
+                navigate(`/`);
                 window.location.reload();
             })
             .catch(err => console.log(err))

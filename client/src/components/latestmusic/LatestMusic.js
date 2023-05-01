@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import defaultImage from "../../public/images/mp3.png";
+import { Link } from "react-router-dom";
 import './latestMusic.scss';
 
 export const LatestMusic = () => {
@@ -25,21 +26,27 @@ export const LatestMusic = () => {
     return(
         <div className='show'>
             <h3 className='title-music-added'>Recently added</h3>
-            {latestMusic.map((music, i) =>{
-                return(
-                    <div key={i} className='music-added'>
-                        <div className='img-music-added'>
-                            {music.image ? (
-                                <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} alt="Image de la musique"/>
-                            ) : (
-                                <img src={defaultImage} alt="Image de base"/>
-                            )}
+            <div className='music-container'>
+                {latestMusic.map((music, i) =>{
+                    return(
+                        <div key={i} className='music-added'>
+                            <div className='img-music-added'>
+                                {music.image ? (
+                                        <Link to={`/music/${music._id}`}>
+                                            <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} alt="Image de la musique"/>
+                                        </Link>
+                                ) : (
+                                    <Link to={`/music/${music._id}`}>
+                                        <img src={defaultImage} alt="Image de base"/>
+                                    </Link>
+                                )}
+                            </div>
+                            <p>{music.name}</p>
                         </div>
-                        <p>{music.name}</p>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
     )
-
 }
+

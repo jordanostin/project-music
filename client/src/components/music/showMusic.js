@@ -6,7 +6,8 @@ import {Comment} from "../form/comment";
 import './styles/showMusic.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {addUser} from "../../store/slices/user/userSlice";
-import {DeleteComment} from "../delete/deleteComment";
+import {AudioPlayer} from "../audioPlayer/AudioPlayer";
+
 
 export const ShowMusic = () => {
 
@@ -73,14 +74,47 @@ export const ShowMusic = () => {
             .catch(err => console.log(err))
     },[])
 
-    return(
+    return (
+        <>
+            <h3 className="title">{music.name}</h3>
+            {music.image ? <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className="image" /> : null}
+            {music.audio && <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />}
+            {music.comments &&
+                music.comments.map((commentId, i) => {
+                    const comment = getCommentDetails(commentId);
+                    console.log(comment);
+                    if (comment) {
+                        return (
+                            <div key={i} className="comment-container">
+                                <h4 className="comment-username">{comment.userName}</h4>
+                                <p className="comment-content">{comment.content}</p>
+                                {comment.user === user ? (
+                                    <Link to={`/delete/comment/by-user/${comment._id}`} className="comment-delete-link">
+                                        Delete
+                                    </Link>
+                                ) : null}
+                            </div>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+            <Link to={`/download/${musicId}`} className="download-link">
+                Download
+            </Link>
+            <Comment id={musicId} />
+            <AddInPlaylist musicId={musicId} />
+            <Like musicId={musicId} />
+        </>
+    );
+}
+
+/*return(
         <>
             <h3 className='title'>{music.name}</h3>
             {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className='image'/>): null}
             {music.audio && (
-                <audio controls>
-                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
-                </audio>
+                <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />
             )}
             {music.comments && music.comments.map((commentId, i) => {
                 const comment = getCommentDetails(commentId);
@@ -105,32 +139,4 @@ export const ShowMusic = () => {
             <AddInPlaylist musicId={musicId}/>
             <Like musicId={musicId}/>
         </>
-    )
-}
-
-/*<>
-            <h3 className='title'>{music.name}</h3>
-            {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className='image'/>): null}
-            {music.audio && (
-                <audio controls>
-                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
-                </audio>
-            )}
-            {music.comments && music.comments.map((commentId, i) => {
-                const comment = getCommentDetails(commentId);
-                if (comment) {
-                    return (
-                        <div key={i}>
-                            <h4>{comment.userName}</h4>
-                            <p>{comment.content}</p>
-                        </div>
-                    );
-                } else {
-                    return null;
-                }
-            })}
-            <Link to={`/download/${musicId}`}>Download</Link>
-            <Comment id={musicId}/>
-            <AddInPlaylist musicId={musicId}/>
-            <Like musicId={musicId}/>
-        </>*/
+    )*/

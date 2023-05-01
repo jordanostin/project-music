@@ -1,61 +1,97 @@
-.title{
-    color: #678490;
-}
-
-p, h4{
+.title {
+    font-size: 32px;
+    margin-bottom: 20px;
     color: #fff;
 }
 
-audio {
-    width: 100%;
-    margin: 0 auto;
-    display: block;
-    color: #010f1b;
+.image {
+    max-width: 100%;
+    margin-bottom: 20px;
 }
 
-audio::-webkit-media-controls-panel{
-    background-color: #010f1b;
-    width: 100%;
-}
-
-audio::-webkit-media-controls-current-time-display{
-    color: #fff;
-}
-
-audio::-webkit-media-controls-time-remaining-display{
-    color: #fff;
-}
-
-audio::-webkit-media-controls-play-button {
-    background-color: #00a9e2;
-    color: #010f1b;
-    border-radius: 50%;
+.comment-container {
+    margin-top: 20px;
+    border: 1px solid #ccc;
     padding: 10px;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
 }
 
-audio::-webkit-media-controls-timeline{
-    background-color: #00a9e2;
-    border-radius: 25px;
+.comment-username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    margin: 0;
+}
+
+.comment-delete-link {
+    color: #ff0000;
     margin-left: 10px;
+}
+
+.download-link {
+    display: inline-block;
+    background-color: #f50;
+    color: #fff;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.download-link:hover {
+    background-color: #d40;
+}
+
+input[type="text"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    display: inline-block;
+    background-color: #f50;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #d40;
+}
+
+.add-in-playlist-link {
+    display: inline-block;
+    background-color: #ff9100;
+    color: #fff;
+    padding: 10px;
     margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
-audio::-webkit-media-controls-mute-button {
-    background-color: #00a9e2;
-    border-radius: 50%;
+.add-in-playlist-link:hover {
+    background-color: #f58000;
 }
 
-audio::-webkit-media-controls-volume-slider {
-    background-color: #00a9e2;
-    border-radius: 25px;
-    padding-left: 8px;
-    padding-right: 8px;
+.like-link {
+    display: inline-block;
+    background-color: #00c853;
+    color: #fff;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
-audio::-webkit-media-controls-toggle-closed-captions-button{
-    display: none;
+.like-link:hover {
+    background-color: #00b14f;
 }
