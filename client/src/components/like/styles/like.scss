@@ -1,0 +1,35 @@
+button {
+  background-color: transparent;
+  border: none;
+  color: #1DB954;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+
+
+  &:hover {
+    color: #fff;
+  }
+
+  &.liked {
+    color: #1DB954;
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 24px;
+      margin-right: 8px;
+      vertical-align: middle;
+      width: 24px;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+}

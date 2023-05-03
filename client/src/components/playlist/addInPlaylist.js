@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import './styles/addInPlaylist.scss';
 
 export const AddInPlaylist = ( {musicId} ) => {
 

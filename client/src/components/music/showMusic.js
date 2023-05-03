@@ -76,8 +76,16 @@ export const ShowMusic = () => {
 
     return (
         <>
+            <div className='title-dl'>
             <h3 className="title">{music.name}</h3>
-            {music.image ? <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className="image" /> : null}
+            <Link to={`/download/${musicId}`} className="download-link">
+                Download
+            </Link>
+            </div>
+
+            {music.image ? (
+                <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className="image" />
+            ) : null}
             {music.audio && <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />}
             {music.comments &&
                 music.comments.map((commentId, i) => {
@@ -99,44 +107,13 @@ export const ShowMusic = () => {
                         return null;
                     }
                 })}
-            <Link to={`/download/${musicId}`} className="download-link">
-                Download
-            </Link>
-            <Comment id={musicId} />
-            <AddInPlaylist musicId={musicId} />
-            <Like musicId={musicId} />
+            <div className="show-music">
+
+                <Comment id={musicId} />
+                <AddInPlaylist musicId={musicId} />
+                <Like musicId={musicId} />
+            </div>
         </>
     );
-}
 
-/*return(
-        <>
-            <h3 className='title'>{music.name}</h3>
-            {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className='image'/>): null}
-            {music.audio && (
-                <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />
-            )}
-            {music.comments && music.comments.map((commentId, i) => {
-                const comment = getCommentDetails(commentId);
-                console.log(comment)
-                if (comment) {
-                    return (
-                        <div key={i}>
-                            <h4>{comment.userName}</h4>
-                            <p>{comment.content}</p>
-                            {comment.user === user ?(
-                                <Link to={`/delete/comment/by-user/${comment._id}`}>Delete</Link>
-                            ) : null
-                            }
-                        </div>
-                    );
-                } else {
-                    return null;
-                }
-            })}
-            <Link to={`/download/${musicId}`}>Download</Link>
-            <Comment id={musicId}/>
-            <AddInPlaylist musicId={musicId}/>
-            <Like musicId={musicId}/>
-        </>
-    )*/
+}

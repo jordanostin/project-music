@@ -1,97 +1,108 @@
-.title {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #fff;
+.title-dl{
+    margin: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+        font-size: 2rem;
+        margin-right: 1rem;
+        color: #fff;
+    }
+
+    .download-link {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .download-link:hover {
+        background-color: #0069d9;
+    }
 }
 
+
 .image {
+    display: block;
+    margin: 1rem auto;
     max-width: 100%;
-    margin-bottom: 20px;
+}
+
+.audio-player {
+    margin-top: 1rem;
 }
 
 .comment-container {
-    margin-top: 20px;
+    margin-top: 2rem;
+    padding: 1rem;
     border: 1px solid #ccc;
-    padding: 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
 }
 
 .comment-username {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
 }
 
 .comment-content {
     margin: 0;
+    color: #444;
 }
 
 .comment-delete-link {
-    color: #ff0000;
-    margin-left: 10px;
-}
-
-.download-link {
     display: inline-block;
-    background-color: #f50;
-    color: #fff;
-    padding: 10px;
-    margin: 20px 0;
-    border-radius: 5px;
+    margin-top: 0.5rem;
+    color: #444;
+    font-weight: bold;
     text-decoration: none;
-}
-
-.download-link:hover {
-    background-color: #d40;
-}
-
-input[type="text"] {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    padding: 0.2rem 0.5rem;
+    background-color: #f5f5f5;
+    transition: all 0.2s ease-in-out;
 }
 
-input[type="submit"] {
+.comment-delete-link:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+
+
+.add-in-playlist-btn {
     display: inline-block;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    color: #444;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-in-playlist-btn:hover {
+    background-color: #fff;
+}
+
+.like-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    color: #fff;
     background-color: #f50;
-    color: #fff;
-    padding: 10px;
-    margin-top: 10px;
+    border: none;
     border-radius: 5px;
     text-decoration: none;
-    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-input[type="submit"]:hover {
-    background-color: #d40;
-}
-
-.add-in-playlist-link {
-    display: inline-block;
-    background-color: #ff9100;
-    color: #fff;
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.add-in-playlist-link:hover {
-    background-color: #f58000;
-}
-
-.like-link {
-    display: inline-block;
-    background-color: #00c853;
-    color: #fff;
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.like-link:hover {
-    background-color: #00b14f;
+.like-btn:hover {
+    background-color: #f00;
 }
