@@ -42,7 +42,7 @@ export const Comment = ({id}) => {
     return(
         <>
             <form onSubmit={handleSubmit}>
-                <input type="text" name='content' placeholder='Comment'/>
+                <input type="text" name='content' placeholder='Comment' className='comment'/>
                 <input type="submit" value='Comment'/>
             </form>
         </>

@@ -77,10 +77,15 @@ export const ShowMusic = () => {
     return (
         <>
             <div className='title-dl'>
-            <h3 className="title">{music.name}</h3>
-            <Link to={`/download/${musicId}`} className="download-link">
-                Download
-            </Link>
+                <h3 className="title">{music.name}</h3>
+                <div >
+                    <Like musicId={musicId} />
+
+                    <Link to={`/download/${musicId}`} className="download-link">
+                        Download
+                    </Link>
+                </div>
+
             </div>
 
             {music.image ? (
@@ -108,12 +113,9 @@ export const ShowMusic = () => {
                     }
                 })}
             <div className="show-music">
-
                 <Comment id={musicId} />
                 <AddInPlaylist musicId={musicId} />
-                <Like musicId={musicId} />
             </div>
         </>
     );
-
 }

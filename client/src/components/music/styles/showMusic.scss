@@ -72,37 +72,3 @@
     background-color: #fff;
     color: #000;
 }
-
-
-
-.add-in-playlist-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.5rem 1rem;
-    color: #444;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.add-in-playlist-btn:hover {
-    background-color: #fff;
-}
-
-.like-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.5rem 1rem;
-    color: #fff;
-    background-color: #f50;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.like-btn:hover {
-    background-color: #f00;
-}

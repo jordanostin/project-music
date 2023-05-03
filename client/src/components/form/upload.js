@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addMusic} from "../../store/slices/music/musicSlice";
+import './styles/upload.scss';
 
 
 export const Upload = () => {

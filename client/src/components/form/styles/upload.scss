@@ -1,0 +1,56 @@
+
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px auto 20px;
+    text-align: center;
+    width: 50%;
+    color: #fff;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    label {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      padding: 1rem;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      width: 50%;
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 3px 3px #a6a6a6;
+      }
+    }
+
+    button[type="submit"] {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0069d9;
+      }
+    }
+  }
