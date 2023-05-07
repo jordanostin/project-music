@@ -1,13 +1,16 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {AudioPlayer} from "../audioPlayer/AudioPlayer";
+import defaultImage from "../../public/images/mp3.png";
+import playButton from "../../public/images/play-button.png";
+import './styles/showPLaylist.scss';
 
 export const ShowPlaylist = () => {
 
     const {playlistId} = useParams();
     const [playlist, setPlaylist] = useState('');
-
-
+    const [currentTrack, setCurrentTrack] = useState({});
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -24,34 +27,48 @@ export const ShowPlaylist = () => {
             .catch(err => console.log(err));
     },[])
 
-    console.log(playlist)
-
+    const handlePlayTrack = (trackUrl, name) => {
+        setCurrentTrack(prevState => {
+            if (prevState.trackUrl === trackUrl) {
+                return {};
+            } else {
+                return {trackUrl, name};
+            }
+        });
+    };
 
     return (
         <>
             {playlist ? (
-                <>
+                <div className='container-showPlaylist'>
                     <h2>{playlist.name}</h2>
                     {playlist.musics.map((music, i) => {
                         return (
-                            <div key={i}>
-                                <h3>{music.name}</h3>
-                                <p>{music.description}</p>
-                                {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} />) : null}
-                                <audio controls>
-                                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
-                                </audio>
-                                <a href={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} download>Download</a>
-                                <br />
-                                <Link to={`/delete/playlist/${playlist._id}/music/${music._id}`}>Delete</Link>
+                            <div key={i} className="music-container">
+                                {music.image ? (<img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className='imgInPlaylist'/>) : (<img src={defaultImage} alt="Image de base" className='imgInPlaylist'/>)}
+                                {currentTrack.trackUrl !== `${process.env.REACT_APP_API_URL}/public/${music.audio}` && (
+                                    <div className="play-button">
+                                        <img src={playButton} alt="Bouton Play" onClick={() => handlePlayTrack(`${process.env.REACT_APP_API_URL}/public/${music.audio}`, music.name)} className="button" />
+                                    </div>
+                                )}
+                                <h3 className='titleInPlaylist'>{music.name}</h3>
+                                <Link to={`/delete/playlist/${playlist._id}/music/${music._id}`} className='delete-button'>Delete</Link>
                             </div>
                         );
                     })}
-                </>
+                    <AudioPlayer trackUrl={currentTrack.trackUrl} nameMusic={currentTrack.name} />
+                </div>
             ) : (
                 <p>Loading...</p>
             )}
         </>
     );
 }
+
+
+
+
+/*<audio controls>
+                                    <source src={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} type='audio/mpeg' />
+                                </audio>*/
 

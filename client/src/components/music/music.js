@@ -59,16 +59,13 @@ export const Music = ({ setLink, setNameMusic }) => {
               <div key={i} className="music-carousel">
                 <div className="image-music">
                   {music.image ? (
-                    <Link to={`/music/${music._id}`}>
                       <img
                         src={`${process.env.REACT_APP_API_URL}/public/${music.image}`}
                         alt="Image de la musique"
                       />
-                    </Link>
                   ) : (
-                    <Link to={`/music/${music._id}`}>
                       <img src={defaultImage} alt="Image de base" />
-                    </Link>
+
                   )}
                   {currentMusic && currentMusic._id === music._id && (
                     <div className="play-button">
@@ -81,7 +78,10 @@ export const Music = ({ setLink, setNameMusic }) => {
                     </div>
                   )}
                 </div>
-                <p className="music-name">{music.name}</p>
+                <Link to={`/music/${music._id}`}>
+                    <p className="music-name">{music.name}</p>
+                </Link>
+
               </div>
             );
           })}
@@ -90,9 +90,3 @@ export const Music = ({ setLink, setNameMusic }) => {
     </>
   );
 };
-
-/*{currentMusic && (
-                <>
-                    <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${currentMusic.audio}`} />
-                </>
-            )}*/

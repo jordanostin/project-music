@@ -1,10 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
-import {addPlaylist} from "../../store/slices/playlist/playlistSlice";
-import {useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { addPlaylist } from "../../store/slices/playlist/playlistSlice";
 
-export const CreatePlaylist = () => {
-
+export const CreatePlaylist = ({ onAddPlaylist }) => {
     const dispatch = useDispatch();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -12,32 +11,31 @@ export const CreatePlaylist = () => {
 
         const playlist = {
             name: e.target.elements.name.value,
-        }
+        };
 
         fetch(`${process.env.REACT_APP_API_URL}/user/create-playlist`, {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(playlist),
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-
-                dispatch(addPlaylist(data))
+            .then((res) => res.json())
+            .then((data) => {
+                dispatch(addPlaylist(data));
+                onAddPlaylist(data);
             })
-            .catch(err => console.log(err))
-    }
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
-    return(
-        <>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='name'>Playlist name</label>
-                <input type='text' id='name' name='name' />
-                <input type='submit' value='Create playlist'/>
-            </form>
-        </>
+    return (
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Playlist name</label>
+            <input type="text" id="name" name="name" />
+            <button type="submit">Create playlist</button>
+        </form>
     );
-}
+};

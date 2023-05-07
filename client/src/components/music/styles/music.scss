@@ -26,8 +26,9 @@
 .carousel {
     position: relative;
     margin: 0 auto;
-    width: 80%;
+    max-width: 1000px;
     padding: 0 30px;
+    box-sizing: border-box;
 
     .slick-slider {
         margin: 50px 0;

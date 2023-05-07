@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faStepBackward, faStepForward} from "@fortawesome/free-solid-svg-icons";
 import "./audioPlayer.scss";
 
 export const AudioPlayer = ({trackUrl, nameMusic}) => {
@@ -16,7 +16,9 @@ export const AudioPlayer = ({trackUrl, nameMusic}) => {
         if (isPlaying) {
             audioRef.current.pause();
         } else {
-            audioRef.current.play();
+            if (trackUrl) {
+                audioRef.current.play();
+            }
         }
         setIsPlaying(!isPlaying);
     };
@@ -48,6 +50,13 @@ export const AudioPlayer = ({trackUrl, nameMusic}) => {
             );
             audioElement.removeEventListener("timeupdate", setCurrentTimeFromAudio);
         };
+    }, [trackUrl]);
+
+    useEffect(() => {
+        if (trackUrl) {
+            audioRef.current.play();
+            setIsPlaying(true);
+        }
     }, [trackUrl]);
 
     const handleVolumeChange = (event) => {
