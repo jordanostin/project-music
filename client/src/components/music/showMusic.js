@@ -100,12 +100,14 @@ export const ShowMusic = () => {
                         return (
                             <div key={i} className="comment-container">
                                 <h4 className="comment-username">{comment.userName}</h4>
-                                <p className="comment-content">{comment.content}</p>
-                                {comment.user === user ? (
-                                    <Link to={`/delete/comment/by-user/${comment._id}`} className="comment-delete-link">
-                                        Delete
-                                    </Link>
-                                ) : null}
+                                <div className='comment-content'>
+                                    <p className="comment-text">{comment.content}</p>
+                                    {comment.user === user ? (
+                                        <Link to={`/delete/comment/by-user/${comment._id}/music/${musicId}`} className="comment-delete-link">
+                                            Delete
+                                        </Link>
+                                    ) : null}
+                                </div>
                             </div>
                         );
                     } else {

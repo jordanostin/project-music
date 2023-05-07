@@ -38,37 +38,51 @@
 }
 
 .comment-container {
-    margin-top: 2rem;
-    padding: 1rem;
-    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+
+    .comment-username {
+        margin-right: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .comment-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .comment-text {
+            font-size: 16px;
+            color: #fff;
+            width: 80%;
+        }
+
+        .comment-delete-link {
+            background-color: #ff3e3e;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background-color: #cc2e2e;
+            }
+        }
+    }
+}
+
+.comment-container:hover {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
-    background-color: #f5f5f5;
 }
 
-.comment-username {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
 
-.comment-content {
-    margin: 0;
-    color: #444;
-}
-
-.comment-delete-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    color: #444;
-    font-weight: bold;
-    text-decoration: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0.2rem 0.5rem;
-    background-color: #f5f5f5;
-    transition: all 0.2s ease-in-out;
-}
-
-.comment-delete-link:hover {
-    background-color: #fff;
-    color: #000;
-}

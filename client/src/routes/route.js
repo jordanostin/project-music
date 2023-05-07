@@ -32,7 +32,7 @@ export const Navigation = () => {
                 <Route path='/delete/user/:userId' element={<DeleteUsers/>}/>
                 <Route path='/delete/music/:musicId' element={<DeleteMusic />}/>
                 <Route path='/delete/comment/:commentId' element={<DeleteComment />}/>
-                <Route path='/delete/comment/by-user/:commentId' element={<DeleteCommentUser />}/>
+                <Route path='/delete/comment/by-user/:commentId/music/:musicId' element={<DeleteCommentUser />}/>
                 <Route path='/delete/playlist/:playlistId' element={<DeletePlaylist />}/>
                 <Route path='/delete/playlist/:playlistId/music/:musicId' element={<DeleteMusicInPlaylist />}/>
                 <Route path='/download/:musicId' element={<Download />}/>
