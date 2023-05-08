@@ -1,3 +1,5 @@
+@import '../../../styles/screen.scss';
+
 .music-carousel {
     position: relative;
     display: flex !important;
@@ -6,6 +8,7 @@
 
     .music-name {
         color: #fff;
+        font-size: 10px;
     }
 
     .image-music {
@@ -19,6 +22,8 @@
             object-fit: cover;
         }
     }
+
+
 }
 
 /*------ carousel -------*/
@@ -26,7 +31,7 @@
 .carousel {
     position: relative;
     margin: 0 auto;
-    max-width: 1000px;
+    width: 80%;
     padding: 0 30px;
     box-sizing: border-box;
 

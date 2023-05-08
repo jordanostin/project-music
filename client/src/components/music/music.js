@@ -8,6 +8,7 @@ import "./styles/music.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+
 export const Music = ({ setLink, setNameMusic }) => {
   const [musics, setMusics] = useState([]);
   const [currentMusic, setCurrentMusic] = useState(null);
@@ -48,7 +49,29 @@ export const Music = ({ setLink, setNameMusic }) => {
     beforeChange: (current, next) => {
       setCurrentMusic(musics[next]);
     },
+    responsive: [
+      {
+        breakpoint: 980,
+        settings: {
+          slidesToShow: 5, // nombre de slides pour desktop
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3, // nombre de slides pour les tablettes
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1, // nombre de slides pour les mobiles
+          centerMode: false,
+        },
+      },
+    ],
   };
+
 
   return (
     <>
