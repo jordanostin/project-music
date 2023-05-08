@@ -22,6 +22,8 @@ export const ShowMusic = () => {
         return comment;
     };
 
+    console.log(music.user, user)
+
     useEffect(() => {
 
         const token = localStorage.getItem('token');
@@ -80,6 +82,11 @@ export const ShowMusic = () => {
                 <h3 className="title">{music.name}</h3>
                 <div >
                     <Like musicId={musicId} />
+                    {music.user === user ? (
+                        <Link to={`/music/update/${musicId}`} className="download-link">
+                            Update
+                        </Link> ) : null
+                    }
 
                     <Link to={`/download/${musicId}`} className="download-link">
                         Download
@@ -95,7 +102,6 @@ export const ShowMusic = () => {
             {music.comments &&
                 music.comments.map((commentId, i) => {
                     const comment = getCommentDetails(commentId);
-                    console.log(comment);
                     if (comment) {
                         return (
                             <div key={i} className="comment-container">

@@ -16,6 +16,7 @@ import {ShowPlaylist} from "../components/playlist/showPlaylist";
 import {DeletePlaylist} from "../components/delete/deletePlaylist";
 import {DeleteMusicInPlaylist} from "../components/delete/deleteMusicInPlaylist";
 import {ShowMusic} from "../components/music/showMusic";
+import {UpdateMusic} from "../components/update/updateMusic";
 
 export const Navigation = () => {
     return(
@@ -38,6 +39,7 @@ export const Navigation = () => {
                 <Route path='/download/:musicId' element={<Download />}/>
                 <Route path='/playlist' element={<Playlist/>}/>
                 <Route path='/playlist/:playlistId' element={<ShowPlaylist />}/>
+                <Route path='music/update/:musicId' element={<UpdateMusic />} />
             </Routes>
         </BrowserRouter>
     );

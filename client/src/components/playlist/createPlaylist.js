@@ -23,8 +23,12 @@ export const CreatePlaylist = ({ onAddPlaylist }) => {
         })
             .then((res) => res.json())
             .then((data) => {
+
                 dispatch(addPlaylist(data));
                 onAddPlaylist(data);
+
+                window.location.reload();
+
             })
             .catch((error) => {
                 console.log(error);

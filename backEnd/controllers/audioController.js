@@ -84,17 +84,16 @@ export const updateAudio = async(req, res) => {
 
         const musicId = req.params.id;
 
-        const {name, description} = fields;
+        const {name} = fields;
 
-        if(!name || !description){
+        if(!name){
             return res.status(400).json({message : 'Les champs sont vide'})
         }
 
-        if(!files.image){
+        if(!files.image || name){
             const music = {
                 user: userId,
                 name,
-                description,
                 updatedAt: Date.now()
             };
             musicSchema.updateOne({ _id: musicId }, music)
@@ -122,7 +121,6 @@ export const updateAudio = async(req, res) => {
                                         const music = {
                                             user: userId,
                                             name,
-                                            description,
                                             image: imageNewPath,
                                             updatedAt: data.updatedAt
                                         };
