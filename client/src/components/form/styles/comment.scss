@@ -1,20 +1,17 @@
-form {
+.form-com{
   display: flex;
-  flex-direction: column;
   margin-top: 1rem;
 
   .comment{
     padding: 0.5rem;
     border: none;
     border-radius: 0.25rem;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0.5rem;
     box-sizing: border-box;
     width: 50%;
+    margin-right: 10px;
   }
 
-  input[type="submit"] {
+  .submit-com {
     background-color: #007bff;
     color: #fff;
     padding: 0.5rem;

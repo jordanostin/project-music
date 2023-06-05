@@ -7,6 +7,7 @@ import './styles/showMusic.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {addUser} from "../../store/slices/user/userSlice";
 import {AudioPlayer} from "../audioPlayer/AudioPlayer";
+import defaultImage from "../../public/images/mp3.png";
 
 
 export const ShowMusic = () => {
@@ -78,9 +79,19 @@ export const ShowMusic = () => {
 
     return (
         <>
-            <div className='title-dl'>
-                <h3 className="title">{music.name}</h3>
-                <div >
+            <div className='container-sm'>
+                <div className='title-dl'>
+                    <div className='img-fond'>
+                        {music.image ? (
+                            <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className="image" />
+                        ) : (
+                            <img src={defaultImage} alt="Image de base" className="image"/>
+                        )}
+                    </div>
+                    <h3 className="title">{music.name}</h3>
+                </div>
+
+                <div className='option'>
                     <Like musicId={musicId} />
                     {music.user === user ? (
                         <Link to={`/music/update/${musicId}`} className="download-link">
@@ -91,38 +102,34 @@ export const ShowMusic = () => {
                     <Link to={`/download/${musicId}`} className="download-link">
                         Download
                     </Link>
+
+                    <AddInPlaylist musicId={musicId} />
                 </div>
-
-            </div>
-
-            {music.image ? (
-                <img src={`${process.env.REACT_APP_API_URL}/public/${music.image}`} className="image" />
-            ) : null}
-            {music.audio && <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />}
-            {music.comments &&
-                music.comments.map((commentId, i) => {
-                    const comment = getCommentDetails(commentId);
-                    if (comment) {
-                        return (
-                            <div key={i} className="comment-container">
-                                <h4 className="comment-username">{comment.userName}</h4>
-                                <div className='comment-content'>
-                                    <p className="comment-text">{comment.content}</p>
-                                    {comment.user === user ? (
-                                        <Link to={`/delete/comment/by-user/${comment._id}/music/${musicId}`} className="comment-delete-link">
-                                            Delete
-                                        </Link>
-                                    ) : null}
+                <div className="form-comment">
+                    <Comment id={musicId} />
+                </div>
+                {music.audio && <AudioPlayer trackUrl={`${process.env.REACT_APP_API_URL}/public/${music.audio}`} />}
+                {music.comments &&
+                    music.comments.map((commentId, i) => {
+                        const comment = getCommentDetails(commentId);
+                        if (comment) {
+                            return (
+                                <div key={i} className="comment-container">
+                                    <h4 className="comment-username">{comment.userName}</h4>
+                                    <div className='comment-content'>
+                                        <p className="comment-text">{comment.content}</p>
+                                        {comment.user === user ? (
+                                            <Link to={`/delete/comment/by-user/${comment._id}/music/${musicId}`} className="comment-delete-link">
+                                                Delete
+                                            </Link>
+                                        ) : null}
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
-            <div className="show-music">
-                <Comment id={musicId} />
-                <AddInPlaylist musicId={musicId} />
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
             </div>
         </>
     );

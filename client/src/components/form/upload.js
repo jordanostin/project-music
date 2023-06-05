@@ -67,7 +67,7 @@ export const Upload = () => {
         <>
             <h2>Upload music</h2>
 
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className='form-upload'>
                 <label htmlFor='name'>Name</label>
                 <input type="text" id='name' name='name'/>
 

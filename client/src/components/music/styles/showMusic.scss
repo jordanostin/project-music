@@ -1,17 +1,29 @@
-.title-dl{
-    margin: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.container-sm{
+    width: 90%;
+    margin: auto;
 
-    .title {
-        font-size: 2rem;
-        margin-right: 1rem;
-        color: #fff;
+
+    .title-dl{
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .title {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: #fff;
+        }
+
+        .img-fond{
+            width: 25%;
+            height: 250px;
+        }
+
+
     }
 
     .download-link {
-        margin-left: 5px;
+        margin: 0 5px;
         display: inline-block;
         padding: 0.5rem 1rem;
         color: #fff;
@@ -25,65 +37,55 @@
     .download-link:hover {
         background-color: #0069d9;
     }
-}
 
 
-.image {
-    display: block;
-    margin: 1rem auto;
-    max-width: 100%;
-}
 
-.audio-player {
-    margin-top: 1rem;
-}
-
-.comment-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-
-    .comment-username {
-        margin-right: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    .audio-player {
+        margin-top: 1rem;
     }
 
-    .comment-content {
+    .comment-container {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        border-bottom: 1px solid #00a9e2;
 
-        .comment-text {
+        .comment-username {
+            margin-right: 10px;
             font-size: 16px;
+            font-weight: bold;
             color: #fff;
-            width: 80%;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
-        .comment-delete-link {
-            background-color: #ff3e3e;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease-in-out;
+        .comment-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            &:hover {
-                background-color: #cc2e2e;
+            .comment-text {
+                font-size: 16px;
+                color: #fff;
+                width: 80%;
+            }
+
+            .comment-delete-link {
+                background-color: #ff3e3e;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                font-size: 14px;
+                padding: 8px 16px;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                transition: background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: #cc2e2e;
+                }
             }
         }
     }
-}
-
-.comment-container:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
 }
 
 
