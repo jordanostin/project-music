@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addPlaylist } from "../../store/slices/playlist/playlistSlice";
+import './styles/createPlaylist.scss'
 
 export const CreatePlaylist = ({ onAddPlaylist }) => {
     const dispatch = useDispatch();
@@ -36,10 +37,9 @@ export const CreatePlaylist = ({ onAddPlaylist }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Playlist name</label>
-            <input type="text" id="name" name="name" />
-            <button type="submit">Create playlist</button>
+        <form onSubmit={handleSubmit} className='form-playlist'>
+            <input type="text" id="name" name="name" placeholder='Playlist Name' className='input-name'/>
+            <input type="submit" value='Create Playlist' className='submit-playlist'/>
         </form>
     );
 };

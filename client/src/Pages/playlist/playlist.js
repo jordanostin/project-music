@@ -27,7 +27,9 @@ export const Playlist = () => {
 
     return (
         <div className="playlist-container">
-            <CreatePlaylist className="create-playlist-btn" onAddPlaylist={handleAddPlaylist}/>
+
+            <h2>PLaylists</h2>
+
             {playlists.map((playlist, i) => {
                 return (
                     <div className="playlist-item" key={i}>
@@ -41,6 +43,7 @@ export const Playlist = () => {
                     </div>
                 );
             })}
+            <CreatePlaylist className="create-playlist-btn" onAddPlaylist={handleAddPlaylist}/>
         </div>
     );
 };

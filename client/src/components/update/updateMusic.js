@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {addMusic} from "../../store/slices/music/musicSlice";
+import './styles/update.scss'
 
 
 export const UpdateMusic = () => {
@@ -52,9 +53,9 @@ export const UpdateMusic = () => {
         <>
             <h2>Update music</h2>
 
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className='form-update'>
                 <label htmlFor='name'>Name</label>
-                <input type="text" id='name' name='name'/>
+                <input type="text" id='name' name='name' className='input-name'/>
 
                 <label htmlFor='image'>Image</label>
                 <input type="file" id='image' name='image'/>
