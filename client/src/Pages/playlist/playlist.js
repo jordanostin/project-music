@@ -1,6 +1,7 @@
 import { CreatePlaylist } from "../../components/playlist/createPlaylist";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import playlistIcone from '../../public/images/image_playlist.png'
 import "./styles/playlist.scss";
 
 export const Playlist = () => {
@@ -28,12 +29,20 @@ export const Playlist = () => {
     return (
         <div className="playlist-container">
 
-            <h2>PLaylists</h2>
+            <h2>Playlists</h2>
+
+            <CreatePlaylist className="create-playlist-btn" onAddPlaylist={handleAddPlaylist}/>
 
             {playlists.map((playlist, i) => {
                 return (
                     <div className="playlist-item" key={i}>
-                        <Link to={`/playlist/${playlist._id}`}>{playlist.name}</Link>
+
+                        <Link to={`/playlist/${playlist._id}`} className='title-playlist'>
+                            <div className='icone'>
+                                <img src={playlistIcone} alt="icone playlist"/>
+                            </div>
+                            {playlist.name}
+                        </Link>
                         <Link
                             to={`/delete/playlist/${playlist._id}`}
                             className="delete-link"
@@ -43,7 +52,6 @@ export const Playlist = () => {
                     </div>
                 );
             })}
-            <CreatePlaylist className="create-playlist-btn" onAddPlaylist={handleAddPlaylist}/>
         </div>
     );
 };
