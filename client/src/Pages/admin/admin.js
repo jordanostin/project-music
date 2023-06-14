@@ -41,7 +41,7 @@ export const Admin = () => {
 
     return(
         <>
-            <h2>Users</h2>
+            <h2 className='titleInAdmin'>Users</h2>
 
             <table>
                 <thead>
@@ -66,7 +66,7 @@ export const Admin = () => {
 
             </table>
 
-            <h2>Musics</h2>
+            <h2 className='titleInAdmin'>Musics</h2>
 
             <table>
                 <thead>
@@ -91,7 +91,7 @@ export const Admin = () => {
 
             </table>
 
-            <h2>Comments</h2>
+            <h2 className='titleInAdmin'>Comments</h2>
 
             <table>
                 <thead>

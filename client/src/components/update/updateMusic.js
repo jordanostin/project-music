@@ -51,7 +51,7 @@ export const UpdateMusic = () => {
 
     return (
         <>
-            <h2>Update music</h2>
+            <h2 className='title-update'>Update music</h2>
 
             <form onSubmit={handleSubmit} encType="multipart/form-data" className='form-update'>
                 <label htmlFor='name'>Name</label>

@@ -29,7 +29,7 @@ export const Playlist = () => {
     return (
         <div className="playlist-container">
 
-            <h2>Playlists</h2>
+            <h2 className='playlist'>Playlists</h2>
 
             <CreatePlaylist className="create-playlist-btn" onAddPlaylist={handleAddPlaylist}/>
 

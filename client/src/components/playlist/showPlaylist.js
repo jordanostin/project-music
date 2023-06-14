@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {AudioPlayer} from "../audioPlayer/AudioPlayer";
 import defaultImage from "../../public/images/mp3.png";
 import playButton from "../../public/images/play-button.png";
+import imagePlaylist from '../../public/images/image_playlist.png';
 import './styles/showPLaylist.scss';
 
 export const ShowPlaylist = () => {
@@ -41,7 +42,12 @@ export const ShowPlaylist = () => {
         <>
             {playlist ? (
                 <div className='container-showPlaylist'>
-                    <h2>{playlist.name}</h2>
+                    <div className='container-title-playlist'>
+                        <div className='img-playlist'>
+                            <img src={imagePlaylist} alt="image playlist"/>
+                        </div>
+                        <h2 className='title-playlist'>{playlist.name}</h2>
+                    </div>
                     {playlist.musics.map((music, i) => {
                         return (
                             <div key={i} className="music-container">
