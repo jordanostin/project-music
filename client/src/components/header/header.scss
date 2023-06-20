@@ -120,17 +120,17 @@ header {
 
     /* clicked */
     .burger-bar.clicked:nth-child(1){
-        transform: rotate(45deg) translate(0.75em, 1.25em);
-        transition: ease-out 0.5s;
+        transform: rotate(45deg) translate(0.75em, 1.25em); // 45° droite 0.75h 1.25v
+        transition: ease-out 0.5s; // anim 0.5s
     }
 
     .burger-bar.clicked:nth-child(2){
-        transform: scale(0.1);
+        transform: scale(0.1); // échelle réduit de 10%
         transition: ease-out 0.5s;
     }
 
     .burger-bar.clicked:nth-child(3){
-        transform: rotate(135deg) translate(-0.5em, 1em);
+        transform: rotate(135deg) translate(-0.5em, 1em); // 135° droite -0.5h 1v
         transition: ease-out 0.5s;
     }
 
@@ -138,7 +138,7 @@ header {
     /* unclicked */
 
     .burger-bar.unclicked{
-        tranform: rotate(0) translate(0);
+        tranform: rotate(0) translate(0); // aucune rotation
         transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
     }
 

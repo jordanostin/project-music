@@ -11,7 +11,9 @@ $breakpoints: (
 
 @mixin desktop {
     @media screen and (min-width: map-get($breakpoints, desktop)) {
-
         @content;
     }
 }
+
+// @mixin regroupe et peut être réutiliser ailleur avec @include
+//map-get extrait la valeur de $breakpoints en utilisant la clé
